@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+@layer theme {
+    :root, :host {
+        --font-display: "Montserrat", sans-serif;
+        --megamenu-bg-color: #ffffff;
+        --megamenu-text-color: #1e1e1e;
+        --megamenu-hover-bg-color: rgba(0, 0, 0, 0.05);
+        --text-color: #404247;
+        --cammara-accent-color: #C81E35;
+        --megamenu-border-radius: 0.3rem;
+        --camara-box-shadow: -1px 5px 8px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    :root {
+        --color-text: #404248;
+        --color-default: #ba0727;
+        --bg-color-default: #f4f5fc;
+        --color-tic: #2ea5da;
+        --bg-color-tic: #f5fafe;
+        --color-sostenibilidad: #046244;
+        --bg-color-sostenibilidad: #f3f8f6;
+        --color-internacional: #fc2366;
+        --bg-color-internacional: #fff5f8;
+        --color-ayudas: #fecf49;
+        --bg-color-ayudas: #fff9e7;
+    }
+}
+
+@layer components {
+    /* ========================================
+       HERO SECTION BUTTONS
+       ======================================== */
+    header.single-hero > div > .single-hero-content > a.single-hero-button,
+    div.camara-button-container > a.single-hero-button {
+        @apply border px-6 py-3 rounded-full;
+    }
+
+    header.single-hero > div > .single-hero-content > div > a.single-hero-button,
+    div.camara-button-container > a.single-hero-button {
+        color: var(--color-jornada);
+        border: 1px solid var(--color-jornada);
+        font-size: 0.9rem;
+        transition: all 0.3s;
+    }
+
+    header.single-hero > div > .single-hero-content > div > a.single-hero-button:hover,
+    div.camara-button-container > a.single-hero-button:hover {
+        background-color: var(--color-jornada);
+        color: var(--bg-color-jornada);
+    }
+
+    /* ========================================
+       TITLES
+       ======================================== */
+    h2.camara-title {
+        @apply mb-12 border-b-2 w-fit px-2 pb-0 font-light;
+        border-color: var(--color-default);
+        line-height: 1.3em;
+    }
+
+    /* ========================================
+       ARTICLES
+       ======================================== */
+    article.camara-article {
+        @apply pb-6;
+    }
+
+    article.camara-article ul > li > ul {
+        @apply ml-6;
+    }
+
+    /* ========================================
+       CONTACT SECTION
+       ======================================== */
+    section.camara-section-contact > div.elementor-container {
+        @apply gap-6 grid grid-cols-1 lg:grid-cols-12 relative;
+    }
+
+    section.camara-section-contact:after {
+        @apply absolute top-0 right-0 bottom-0 w-10/12 h-full rounded-l-2xl;
+        content: "";
+        background: var(--bg-color-jornada);
+        max-height: 50%;
+        z-index: -10;
+        transform: translateY(58.333%);
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-contact-contain {
+        @apply py-8 pl-8 lg:col-span-5 lg:col-start-2;
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-contact-contain > div > div > div {
+        @apply flex flex-col h-full justify-between items-center gap-8;
+    }
+
+    section.camara-section-contact > div.elementor-container li.fila_form_contacto_custom_contacto_nombre {
+        @apply text-3xl font-normal;
+    }
+
+    section.camara-section-contact > div.elementor-container li,
+    section.camara-section-contact > div.elementor-container li > a {
+        @apply text-lg font-normal;
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-form-contain {
+        @apply rounded-md bg-white h-fit px-8 py-12 shadow-md flex items-center lg:col-span-4 lg:col-start-8;
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="text"],
+    input[type="email"],
+    textarea {
+        @apply mb-4 rounded-md w-full px-4 py-2;
+        border-color: var(--color-gray-300);
+    }
+
+    :is(section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="text"],
+    input[type="email"],
+    textarea):focus {
+        @apply outline-none ring-2;
+        --tw-ring-color: var(--color-jornada);
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="submit"] {
+        @apply px-6 py-3 text-sm rounded-full transition-opacity;
+        border-color: var(--color-jornada);
+        color: var(--color-jornada);
+        background-color: transparent;
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="submit"]:hover {
+        background-color: var(--color-jornada);
+        color: var(--bg-color-jornada);
+        opacity: 0.9;
+    }
+
+    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="submit"] {
+        transition: all 0.3s;
+    }
+
+    div.fila_form_contacto_custom_contacto ul {
+        @apply flex flex-col gap-2 pl-5;
+    }
+
+    section.camara-section-contact .custom-logo {
+        @apply h-auto max-w-48;
+    }
+
+    /* ========================================
+       AGENDA ITEMS
+       ======================================== */
+    figure > div.agenda-figure > img.agenda-logo,
+    .agenda-logo {
+        max-width: 8rem;
+        max-height: 1.5rem;
+        object-fit: contain;
+    }
+
+    .agenda-item {
+        @apply block transition-all;
+        text-decoration: none;
+        transition-duration: 0.3s;
+    }
+
+    .agenda-item:hover {
+        transform: translateY(-2px);
+    }
+
+    .agenda-figure {
+        @apply flex items-end;
+    }
+
+    .agenda-meta {
+        @apply text-gray-600;
+    }
+
+    .evento-clase {
+        @apply whitespace-nowrap;
+    }
+
+    /* ========================================
+       CALENDAR & SLIDER
+       ======================================== */
+    h2.slider-calendar-title {
+        @apply mb-4 text-lg;
+    }
+
+    .hero-events-splide {
+        min-height: 384px;
+    }
+
+    .hero-events-splide .splide__slide {
+        @apply flex items-center;
+    }
+
+    h3.calendar-month-title {
+        @apply mx-2 my-0 text-lg font-light;
+    }
+
+    button#calendar-prev,
+    button#calendar-next {
+        @apply rounded-full p-2 transition-colors hover:bg-gray-100;
+        border: none;
+        aspect-ratio: 1;
+        height: 1.5rem;
+        width: 1.5rem;
+        transition-duration: 0.3s;
+    }
+
+    .calendar-day {
+        @apply flex items-center justify-center rounded-md border text-sm transition-colors cursor-pointer;
+        aspect-ratio: 1;
+        border-color: var(--bg-color-default);
+        color: var(--color-text);
+    }
+
+    .calendar-day:hover:not(.disabled):not(.selected) {
+        @apply bg-gray-800 text-white;
+    }
+
+    .calendar-day.disabled {
+        @apply cursor-not-allowed text-gray-400;
+    }
+
+    .calendar-day.has-events {
+        @apply relative;
+        background-color: var(--bg-color-default);
+    }
+
+    .calendar-day.selected {
+        @apply font-semibold text-white;
+        background-color: var(--color-text);
+    }
+
+    .calendar-day.today {
+        @apply border font-semibold;
+        border-color: var(--color-text);
+    }
+
+    /* ========================================
+       SPLIDE PAGINATION
+       ======================================== */
+    .splide__pagination__page.is-active {
+        @apply bg-gray-900;
+    }
+
+    /* ========================================
+       ELEMENTOR COMPATIBILITY
+       ======================================== */
+    .elementor-section-boxed .elementor-container {
+        max-width: 1140px;
+    }
+}

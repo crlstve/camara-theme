@@ -1,0 +1,2075 @@
+/* 
+Theme Name: Cámara Valencia
+Theme URI: https://github.com/elementor/hello-theme/
+Description: Hello Elementor Child is a child theme of Hello Elementor, created by Elementor team
+Author: Elementor Team
+Author URI: https://elementor.com/
+Template: hello-elementor
+Version: 1.0.1
+Text Domain: hello-elementor-child
+License: GNU General Public License v3 or later.
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready
+*/
+
+/*
+    Add your custom styles here
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+a {
+	text-decoration: none;
+}
+.listado_titulo{
+	font-size: 30px;
+}
+.icono_urlcertificacion{
+	background-image: url('/wp-content/themes/camaravalencia/images/certificado.gif');
+	background-position: top center;
+	background-repeat: no-repeat;
+	width: 30px;
+}
+
+section.elementor-element-25c1c40 .elementor-column-gap-default>.elementor-column>.elementor-element-populated, section.elementor-element-a092b02 .elementor-column-gap-default>.elementor-column>.elementor-element-populated { 
+	padding: 0px;
+	
+}
+
+a.boton-rojo {
+	
+	display: inline-block;
+    line-height: 1;
+    background-color: #D30D49;
+    font-size: 15px;
+    padding: 12px 24px;
+    border-radius: 3px;
+    color: #fff;
+    fill: #fff;
+    text-align: center;
+    transition: all .3s;
+	font-weight: 500;
+	
+}
+
+/** estilos entradas formación **/
+div.category-formacion {
+	font-family: "Poppins", Sans-serif !important;
+	
+}
+
+div.category-formacion ol li h3 {
+	font-size: 25px !important;
+	font-family: "Poppins", Sans-serif !important;
+}
+
+div.category-formacion ol {
+	font-size: 25px !important;
+	font-family: "Poppins", Sans-serif !important;
+}
+
+/** estilos entradas formación **/
+
+/** menú formación móvil **/
+
+ul#menu-2-aef535c li a {
+	margin-left: 20px;
+}
+
+div.elementor-menu-toggle{
+ 	
+    margin-right: 10px !important;
+
+}
+
+
+/*li.menu-formacion-submenu-movil {
+	border-bottom-width: 0px !important;
+	display: inline-table !important;
+	border-right-width: 1px !important;
+	text-align: center !important;
+	background-color: #cccccc !important;
+	border-right-color: #8B8B8B !important;
+	
+}*/
+
+
+/*ul li.menu-formacion-submenu-movil:first-of-type  {
+	padding-top: 20px !important;
+	
+}
+
+li.menu-formacion-submenu-movil-first {
+    margin-top: 20px !important;
+
+}*/
+
+ul#menu-2-aef535c {
+	background-color: #cccccc;
+}
+
+ul#menu-2-aef535c li {
+	background-color: #fefefe;
+}
+
+/*li.menu-formacion-submenu-movil a
+{
+	padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}*/
+/*li.menu-formacion-submenu-movil:not(:last-child) {
+	border-style: solid !important;
+    border-color: #DEDEDE !important;
+	border-right-width: 1px !important;
+}*/
+
+.elementor-element-fb37399 .elementor-element-b84ccb9 {
+	display: inline-table !important;
+}
+
+/* formularios AC */
+
+div._form-content input[type="text"], div.formulario_lead input[type="text"], div.formulario_lead textarea, div._x30691356 select{
+	
+	    border-width: 0px 0px 1px 0px !important;
+	    border-color: var(--e-global-color-text) !important;
+        border-radius: 0px 0px 0px 0px !important;
+	    background-color: transparent !important;
+		font-size: 16px !important;
+		font-weight: normal !important;
+		font-style: normal !important;
+		text-decoration: none !important;
+		line-height: 22px !important;
+		letter-spacing: 0px !important;
+		min-height: 59px !important;
+    	padding: 7px 20px !important;
+}
+
+div._form-content button
+{
+	font-family: "Poppins", Sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    border-style: solid !important;
+    border-width: 1px 1px 1px 1px !important;
+    border-radius: 0px 0px 0px 0px !important;
+    padding: 22px 71px 21px 71px !important;
+	background-color: #FFFFFF !important;
+    color: var(--e-global-color-secondary) !important;
+    border-color: #FFFFFF !important;
+
+}
+
+/* formularios AC */
+
+/** menú formación móvil **/
+
+/** Instalaciones **/
+.franja_aula {
+	position: relative;
+	bottom: 150px;
+	background-color: #fff; /*gba(0, 0, 0, 0) url("../img/fondo_item_agenda.png") no-repeat scroll center top / cover;*/
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	opacity: 0.8;
+}
+.franja_aula .nombre{
+	font-weight: bold;
+	font-size: 22px;
+}
+.franja_aula .cantidad{
+	font-size: 16px;
+	color: #676767;
+}
+.precios{
+	position: relative;
+	bottom: 90px;
+}
+
+b, strong {
+	font-weight: bold !important;
+	
+}
+.elementor-widget-text-editor {
+    font-family: "Raleway", Sans-serif !important;
+	}
+
+/** Instalaciones **/
+/** Noticias **/
+.elementor-divider {
+  display: block;
+}
+/** PRENSA**/
+.listado_prensa img {
+	max-width: 250px;
+}
+.listado_prensa .jornada_fecha {
+	color: #d30547;
+	background-color: #eeeeee;
+	text-align: center;
+	padding: 10px;
+	margin-left: -20px;
+}
+.paginador_prensa {
+  display: block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.paginador_prensa ul li {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.paginador_prensa .page-numbers .current {
+  color: white;
+  background-color: #d30d49;
+  padding: 5px 10px;
+}
+/** Actividades **/
+.filtros_columna {
+	display: inline-block;
+	width: 33%;
+	padding: 10px;
+}
+/**Jornadas**/
+.listado_jornadas .cuadro-fecha {
+  width: 120px;
+  height: 110px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 2px solid #d30547;
+  margin: auto;
+  box-sizing: content-box;
+  margin-bottom: 10px;
+
+}
+
+.listado_jornadas .jornada-completa {
+  font-weight: bold;
+  position: absolute;
+  z-index: 50;
+  top: 10px;
+  left: -40px;
+  padding: 2px 40px;
+  background-color: #d30547;
+  color: #fff;
+  transform: rotate(-40deg);
+  -ms-transform: rotate(-40deg);
+  -webkit-transform: rotate(-40deg);
+}
+.listado_jornadas .fecha_dia {
+  color: #555;
+  font-size: 60px;
+  margin-top: 0px;
+  font-weight: bold;
+}
+.listado_jornadas .fecha_mes {
+  color: #555;
+  font-size: 16px;
+  margin-top: -10px;
+  font-weight: bold;
+}
+.listado_jornadas .precio{
+  font-weight: bold;
+}
+.botones_jornadas{
+    margin-top: 20px;
+}
+a.boton-listado-formacion {
+  background-color: #d30d49;
+  color: white;
+  padding: 8px 13px;
+  margin-right: 15px;
+  font-weight: 700;
+  font-size: 16px;
+}
+a.boton-listado-formacion:hover{
+  background-color: #555;
+  color: white;
+}
+.listado_jornadas .elementor-widget-heading p a{
+      color: #555;
+    font-size: 16px;
+    font-weight: bold;
+}
+.listado_jornadas .elementor-widget-heading p{
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.listado_jornadas h3{
+    font-size: 24px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 1;
+    font-weight: bold;
+}
+.listado_jornadas h3 a{
+      color: #d30547;
+}
+h1.proximas_jornadas{
+      color: #666;
+    font-size: 30px;
+    font-weight: 700;
+}
+.listado_jornadas{
+  border-top: 1px solid #d30547;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.listado_jornadas:last-child{
+  border-bottom: 1px solid #d30547;
+}
+.lista_jornadas{
+  margin-bottom: 50px;
+}
+.listado_jornadas .elementor-widget-text-editor p{
+  font-size: 16px;
+}
+/* header */
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html, body, p ,a, li {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+body a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+img {
+  max-width: 100%;
+}
+
+a[onclick] {
+  cursor: pointer;
+}
+
+h1,h2,h3,h4,h5{
+  font-family: 'Raleway', sans-serif !important;    
+}
+
+.elementor-section.elementor-section-boxed > .elementor-container {
+    max-width: 1170px;
+}
+#idiomas > div {  
+ padding-left: 18px;
+  background: url('images/bola_mundo.png') no-repeat left 4px;
+}
+#idiomas > div a {
+  color: #1a1a1a;
+  font-size: 12px;
+  margin-right: 0px;
+  font-weight: bold;
+  padding: 0px 5px !important;
+}
+#idiomas > div li.wpml-ls-current-language a{
+  color: #D30547;
+}
+#idiomas  ul{
+  vertical-align: super !important;
+  display: inline-flex;
+  margin-top: 3px !important;
+}
+#idiomas .wpml-ls-legacy-list-horizontal{
+  padding: 0px;
+}
+.prensa{
+  color:#343031;  
+  text-align:right !important;
+  float:left;
+  margin-right:10px; 
+}
+.prensa a{
+  color:#343031;
+  font-size:11px;
+  font-weight:bold;
+}
+.sobre_camara{
+  padding:0px !important;
+  float:left;
+}
+.sobre_camara img{
+  margin-right:5px;
+  position: relative;
+  top: 2px;
+}
+.sobre_camara a{
+  color:#B20022;
+  font-size:11px;
+  font-weight:bold;
+}
+.elementor-social-icons-wrapper.elementor-grid a.elementor-social-icon{
+  background-color: transparent !important;
+}
+#header-bottom {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 10%);
+    border-bottom: 1px solid !important;
+    border-bottom-color: #e7e7e7 !important;
+}
+#header-bottom .elementor-nav-menu > li > a{
+    border-bottom: 2px solid white;
+}
+#header-bottom .elementor-nav-menu > li > a:hover{
+  border-bottom: 2px solid #d30547;
+}
+#header-bottom .elementor-nav-menu > li > a .sub-arrow{
+  display: none;
+}
+#header-bottom .elementor-nav-menu > li > ul > li > a{
+  border-left: 1px;
+}
+#header-bottom .elementor-nav-menu > li > ul > li{
+  border-bottom: 1px solid #ccc;
+}
+#header-bottom .elementor-nav-menu > li > ul > li > a:hover{
+  border-left: 1px solid #d30547;
+}
+#header-bottom .elementor-nav-menu  ul.sub-menu > li > ul > li a.elementor-sub-item{
+  text-transform: initial !important;
+  padding: 13px;
+}
+.elementor-location-footer li a,
+.elementor-location-footer p a{
+  color: #7a7a7a !important;
+}
+.elementor-location-footer .texto-ubicacion{
+  background-image: url('images/icono_ubicacion.png');
+  background-repeat: no-repeat;
+  background-position: top 10px left;
+}
+.elementor-location-footer .texto-telefono{
+  background-image: url('images/icono_telefono.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+.elementor-location-footer .elementor-nav-menu--main a:after{
+  display: none;
+}
+.elementor-location-footer .elementor-nav-menu--main a:hover,
+.elementor-location-footer .elementor-nav-menu--main li.current-menu-item a{
+  color: white !important;
+}
+.lista_licitaciones .listado_titulo{
+  margin-bottom: 30px;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default .elementor-column {
+
+  padding:10px;
+  font-size:14px;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default:nth-child(even) .elementor-column{
+  background-color: #f1f1f1;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default:nth-child(odd) .elementor-column{
+  background-color: white;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default:first-child .elementor-column{
+  background-color: #ccc;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default .elementor-column:nth-child(1){
+  width: 50% !important;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default .elementor-column  ul  li{
+  font-size: 12px;
+}
+.lista_licitaciones .listado_contenedor .elementor-column-gap-default .elementor-column  ul{
+  padding-left: 15px;
+}
+.listado_contenedor.adjudicadas{
+  margin: 40px 0px 70px 0px;
+}
+.listado_contenedor.adjudicadas .elementor-tab-title{
+  background-color: #f1f1f1;
+}
+.listado_contenedor.adjudicadas .elementor-tab-title a{
+  color: #333;
+}
+.listado_contenedor.adjudicadas .elementor-widget-accordion .elementor-accordion-icon svg{
+  fill: #333 !important;
+}
+
+.single.single-licitaciones  .elementor-heading-title {
+  font-size: 18px;
+  font-weight:bold;
+  margin-bottom: 20px;
+  margin-bottom: 0px !important;
+}
+.single.single-licitaciones h1 {
+ font-weight:bold;
+ margin-top: 60px;
+ font-size: 22px !important;
+}
+
+
+
+
+/* JORNADAS */
+
+.filtros_area_jornadas{
+  font-weight: bold;
+  margin: 15px 0px 20px 0px;
+}
+.filtros_area_jornadas p{
+  text-align: left;
+}
+.filtros_area_jornadas a{
+  color: #666;
+  font-weight: normal;
+  margin:0px 15px;
+}
+.filtros_area_jornadas a:hover{
+  border-bottom: 1px solid #666;
+}
+.post-type-archive-noticias .servicios-cabecera{
+  -webkit-box-shadow: 0px 4px 10px rgb(0 0 0 / 20%);
+    -moz-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.listado_jornadas{
+  border-bottom: 1px solid #d30547;
+}
+
+.listado_prensa{
+      padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+.listado_prensa .jornada_fecha_dia{
+  font-size: 30px;
+  font-weight: bold;
+}
+.listado_prensa .jornada_fecha_mes{
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.listado_prensa h3{
+  font-size: 24px;
+    color: #d30d49;
+    line-height: 1.1em;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.listado_prensa .subtitulo{
+  color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.paginador_prensa{
+  text-align: right !important;
+  margin-bottom: 40px;
+}
+.paginador_prensa li{
+  margin: 0px;
+}
+.paginador_prensa li a,
+.paginador_prensa .page-numbers .current {
+    padding: 8px 13px;
+    color: black;
+    font-weight: bold;
+}
+
+.paginador_prensa .page-numbers .current {
+    color: white;
+    background-color: #d30d49;
+    padding: 8px 13px;
+    font-weight: bold;
+}
+.filtros_actividades label {
+    display: block !important;
+    font-size: 18px;
+    color: #333333;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.filtro_actividades{
+  padding: 30px 0px;
+  margin-bottom: 50px;
+  background-color: #E6E6E6;
+}
+.filtro_actividades select{
+  border:1px solid #ccc;
+  font-size: 14px;
+}
+.page-header h1{
+  text-align: center;
+  text-transform: uppercase;
+  padding: 50px 0px;
+}
+.item-prensa{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.item-prensa h3{
+  font-weight: bold;
+  font-size: 21px;
+    margin-bottom: 0px;
+}
+.item-prensa .recurso_vinculado{
+  margin-bottom: 0px;
+}
+.lista_page_noticias{
+  padding-top: 50px;
+}
+
+.single-noticias h1{
+    text-align: center !important;
+    font-size: 40px !important;
+    padding-bottom: 40px !important;
+    padding-top: 30px !important;
+    font-weight: 500 !important;
+}
+.single-noticias h3{
+  font-weight: bold !important;
+}
+.recursos-vinculados-single-noticia{
+  margin-bottom: 60px;
+}
+.recursos-vinculados-single-noticia h3{
+  font-weight: 700;
+  font-size: 20px;
+}
+
+
+
+
+/*PUBLICACIONES*/
+.listar_publis .filtros_area_publicacion {
+	display:none;
+}
+.lista_publicaciones .filtros_area_publicacion {
+	display: block;
+}
+.filtros_area_publicacion span {
+	cursor: pointer;
+}
+.filtros_area_publicacion span.active {
+	color: #C01534;
+	font-weight: bold;
+}
+
+/*
+.agenda_actividades {
+  background-color: #b80547;
+}
+.agenda_actividades .listado_agenda_actividades > div{
+  background-color: white;
+}
+*/
+
+.lista_publicaciones .filtros_area_publicacion{
+  display: table;
+  margin: 0 auto;
+}
+.lista_publicaciones .filtros_area_publicacion p{
+  display: -webkit-box;
+  font-weight: 700;
+    color: #444;
+    margin-right: 20px;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+
+.lista_publicaciones .filtros_area_publicacion select{
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    position: relative;
+    top: -7px;
+    max-width: 220px;
+}
+.lista_publicaciones .filtros_area_publicacion p span{
+    font-weight: normal;
+    margin-left: 20px;
+    padding-right: 20px;
+    border-right: 1px solid #444
+}
+.lista_publicaciones .filtros_area_publicacion p span:last-child{
+  border: 0px;
+}
+.listado_publicaciones{
+  margin-top: 45px;
+}
+.lista_publicaciones article,
+.listar_publis  article{
+      background: #f2f2f2;
+    margin: 15px;
+    min-height: 630px;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+.lista_publicaciones article h3,
+.listar_publis  article h3{
+    font-size: 20px;
+    color: #444;
+    line-height: 26px;
+    font-weight: bold;
+}
+
+.listar_publis{
+  margin-bottom: 50px;
+}
+.lista_publicaciones article h3:hover,
+.listar_publis  article h3:hover{
+  color: #C01534;
+}
+.lista_publicaciones article p,
+.listar_publis  article p{
+  font-size: 15px;
+  color: #444;
+}
+.lista_publicaciones .filtros_area_publicacion p span:hover{
+  color: #C01534;
+}
+.filtros_area_publicacion span.active{
+  font-weight: bold !important;
+}
+.listado_detalle_agenda .img_fecha{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.menu_escuela_negocios li a{
+ /* font-family: 'Roboto Condensed', sans-serif !important;*/
+  font-family:"Poppins", Sans-serif !important;
+  padding-right: 0.5rem !important;
+  padding-left: 0.5rem !important;
+}
+.menu_escuela_negocios li a:after{
+  display: none;
+}
+
+.single-publicaciones h1{
+    color: #D30D49;
+    font-size: 42.5px;
+     font-weight: bold !important;
+}
+.single-publicaciones .elementor-widget-container{
+      font-size: 18px !important;
+    color: #808080 !important;
+    font-weight: 300 !important;
+
+}
+.single-publicaciones .type-publicaciones > section{
+  padding-top: 30px ;
+  padding-bottom: 30px;
+}
+.single-publicaciones .type-publicaciones h2{
+   font-weight: 500 !important;
+   font-size: 31.5px;
+   color: #444;
+}
+.single-publicaciones .type-publicaciones ul li{
+  color: #444;
+  font-size: 15px;
+}
+.single-publicaciones .type-publicaciones h3{
+  text-align: center;
+  font-weight: 600 !important;
+  font-size: 24px;
+}
+
+.single-publicaciones .type-publicaciones input {
+    background-color: #fff !important;
+    background-image: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset !important;
+    color: #555;
+    display: block !important;
+    height: 34px !important;
+    line-height: 1.42857 !important;
+    padding: 6px 12px !important;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s !important;
+    width: 100% !important;
+    border-radius: 0px !important;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.single-publicaciones .type-publicaciones form br{
+  display: none;
+}
+.single-publicaciones .type-publicaciones  input[type="checkbox"] {
+    width: auto !important;
+    position: absolute !important;
+    line-height: 17px !important;
+    margin-bottom: 10px !important;
+    margin-top: -2px !important;
+    box-shadow: 0px 0px 0px !important;
+}
+.single-publicaciones .type-publicaciones span.acepto{
+  padding-left: 20px;
+  font-size: 14px;
+}
+.single-publicaciones .type-publicaciones input[type="submit"]{
+    background-color: #d30d49 !important;
+    border: 0 none !important;
+    border-radius: 0;
+    color: white !important;
+    float: right !important;
+
+    width: auto !important;
+    font-weight: bold;
+}
+
+.resumen_agenda,
+.agenda_actividades {
+  background-color: #c01534;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    position: relative;
+}
+.home .resumen_agenda{
+  padding-top: 150px;
+}
+.home .resumen_agenda:after {
+    content: '';
+    background-image: url(images/fondo_trans_eventos_top.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 80px;
+    position: absolute;
+    width: 100%;
+    top:0;
+}
+.resumen_agenda h2,
+.agenda_actividades h2{
+    color: white;
+    text-align: center;
+    font-size: 33px;
+    font-weight: 700;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 35px;
+}
+.resumen_agenda h3,
+.agenda_actividades h3 {
+   color: #3c3c3b !important;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 0px;
+}
+.resumen_agenda h3 a,
+.agenda_actividades h3 a{
+ color: #3c3c3b !important;
+}
+.resumen_agenda p,
+.agenda_actividades p{
+  color: #575756;
+  font-size: 15px;
+  font-weight: 600;
+}
+.resumen_agenda p.subtitulo,
+.agenda_actividades p.subtitulo{
+  color: #c01534;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.resumen_agenda .listado_detalle_agenda,
+.agenda_actividades .listado_detalle_agenda{
+  margin: 15px;
+}
+.resumen_agenda .listado_detalle_agenda .elementor-col-30 > div > div,
+.resumen_agenda .listado_detalle_agenda .elementor-col-30 > div > div > div,
+.agenda_actividades .listado_detalle_agenda .elementor-col-30 > div > div,
+.agenda_actividades .listado_detalle_agenda .elementor-col-30 > div > div > div{
+  height: 100%;
+}
+.resumen_agenda .listado_detalle_agenda .elementor-col-30 > div,
+.agenda_actividades .listado_detalle_agenda .elementor-col-30 > div{
+  padding: 0px;
+}
+.resumen_agenda .listado_detalle_agenda .elementor-col-70 > div,
+.agenda_actividades .listado_detalle_agenda .elementor-col-70 > div{
+  background-color: white;
+}
+
+.resumen_agenda .listado_detalle_agenda .agenda_fecha ,
+.agenda_actividades .listado_detalle_agenda .agenda_fecha {
+    background: #333333;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    font-size: 19px;
+    line-height: 22px;
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+}
+.home .ultimas_noticias{
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.home .ultimas_noticias h2{
+  margin-bottom: 30px;
+}
+
+
+/* pagina oferta formativa */
+
+#oferta_formacion {
+  background-color: #F6F6F6;
+  text-align: center;
+  padding: 30px 20px;
+ 
+}
+#oferta_formacion *{
+   font-family: 'Roboto Condensed', sans-serif !important;
+}
+#oferta_formacion h1{
+      color: #545454;
+    font-weight: bold;
+    font-size: 33px;
+}
+#oferta_formacion #label_area {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #545454;
+  font-weight: bold;
+  font-size: 20px;
+  display: inline-block;
+}
+
+#oferta_formacion select[name=area], #oferta_formacion select[name=tipo], #oferta_formacion select[name=modalidad], #oferta_formacion select[name=areaclaustro] {
+  border: none;
+  padding: 13px;
+  color: #003a5c;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  display: inline-block;
+  width: 300px;
+}
+
+#oferta_formacion .item-oferta {
+  text-align: left;
+  background-color: #fff;
+  margin-bottom: 40px;
+}
+
+#oferta_formacion .item-oferta > div {
+  padding: 10px 15px 15px;
+  position: relative;
+}
+
+#oferta_formacion .item-oferta a > img, #contenedor_ofertas .item-oferta a > img {
+  width: 100%;
+}
+
+
+#filtros_formacion, #filtros_claustro {
+  text-align: left;
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
+  margin-bottom: 40px;
+  color: #999;
+  font-size: 17px;
+  margin-left:10px;
+  margin-right: 10px;
+}
+
+#filtros_formacion > b, #filtros_claustro > b {
+  color: #000;
+}
+
+#filtros_claustro span {
+  cursor: pointer;
+  margin: 0 12px;
+}
+
+#filtros_formacion span {
+  cursor: pointer;
+  /*margin: 0 12px;*/
+ margin-left: 10px;
+ margin-right: 10px;
+
+}
+
+#filtros_formacion span.activo, #filtros_claustro span.activo {
+  color: #003a5c;
+  font-weight: bold;
+}
+
+#filtros_formacion span.desactivado, #filtros_claustro span.desactivado {
+  cursor: default;
+}
+
+.item-oferta .flecha {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background-image: url('images/flecha-oferta.png');
+    right: 15px;
+    bottom: 18px;
+}
+
+.item-oferta .titulo_tipo {
+  float: left;
+  font-size: 14px;
+}
+
+
+
+
+.item-oferta h2 {
+    font-weight: bold;
+    font-size: 18px;
+    color: #575756;
+    clear: both;
+    padding-top: 6px;
+    line-height: 23px;
+   /* min-height: 100px;*/
+}
+
+.item-oferta h2 span {
+  font-weight: normal;
+}
+
+.item-oferta .tipo {
+  color: #9D9D9C;
+  float: right;
+  font-size: 14px;
+}
+
+.item-oferta .horas {
+  color: #9D9D9C;
+}
+
+.item-oferta .horas b {
+  color: #706F6F;
+}
+
+.item-oferta .fecha {
+  color: #9D9D9C;
+}
+
+.item-oferta .descripcion {
+  padding-top: 10px;
+  margin-top: 10px;
+  color: #706F6F;
+  border-top: 1px solid #ddd;
+  margin-bottom: 20px;
+  font-size: 15px;
+  min-height: 125px;
+}
+
+.item-oferta .precio {
+  color: #575756;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 10px;
+    padding-top: 10px;
+}
+
+.item-oferta .precio sup {
+  font-weight: normal;
+}
+
+.home .ultimas_noticias h2{
+  text-align: center;
+    font-size: 33px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    padding-top: 30px;
+    color: #1d1d1b;
+}
+.home .ultimas_noticias h3{
+      color: #3c3c3b;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+     padding: 0px 20px;
+     padding-top: 20px;
+     margin-top: 0px;
+}
+.home .ultimas_noticias .elementor-grid-item{
+    padding: 15px;
+}
+
+.home .ultimas_noticias .fecha span{
+    margin: 0px;
+    color:white;
+    text-transform: uppercase;
+    background-color:#c01534;
+    text-align: center;
+    padding: 10px;
+    display: block;
+}
+.home .ultimas_noticias .elementor-post__excerpt p{
+    font-weight:500;
+    margin-top: 10px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+    color: #575756;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/*INSTALACIONES ESCUELA */
+
+a.enlace-instalacion-escuela  {
+	color:#000 !important;
+	font-weight: 300 !important;
+	
+}
+
+.item-instalacion-escuela {
+	border: 1px solid #00385d;
+	padding: 0px !important;
+	margin: 20px;
+	height: 385px;
+	
+}
+.item-instalacion-escuela .precios {
+	
+    padding-left: 37px;
+    padding-top: 24px;
+	padding-bottom: 20px;
+	bottom: 70px;
+
+}
+
+.item-instalacion-escuela .franja_aula {
+	opacity:1 !important;
+	position: relative;
+    bottom: 65px;
+    background-color: #fff;
+    width: 25%;
+    text-align: center;
+    padding: 5px;
+	border-radius: 10px;
+	margin-left: 35px;
+}
+
+.item-instalacion-escuela .franja_aula .cantidad {
+	color: #003a5c;
+    font-size: 14px;
+	font-weight: 700;
+}
+
+.item-instalacion-escuela .precios .nombre {
+    font-weight: bold;
+    font-size: 20px;
+	color:#00385d;
+}
+
+
+	
+/*INSTALACIONES ESCUELA */
+
+.home .ultimas_noticias .elementor-post__text{
+      background: #f2f3f5;
+   
+}
+.home .ultimas_noticias .elementor-post__text:hover{
+  background-color: #dfdfdf;
+}
+.single-instalaciones h1{
+  font-weight: bold !important;
+}
+.single-instalaciones .fila_form_contacto_custom_contacto{
+  text-align: center;
+  padding: 20px;
+}
+.single-instalaciones .fila_form_contacto_custom_contacto .fila_form_contacto_custom_contacto_txt{
+  color:#d30d49;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.single-instalaciones .fila_form_contacto_custom_contacto .fila_form_contacto_custom_contacto_nombre{
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+}
+.single-instalaciones .fila_form_contacto_custom_contacto .fila_form_contacto_custom_contacto_cargo{
+    margin-top: 16px;
+}
+.single-instalaciones .formulario_contacto_custom{
+  padding: 25px 40px;
+}
+
+.single-instalaciones .formulario_contacto_custom input,
+.single-instalaciones .formulario_contacto_custom textarea{
+  background-color: #fff !important;
+    background-image: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset !important;
+    color: #555;
+    display: block !important;
+    height: 34px !important;
+    line-height: 1.42857 !important;
+    padding: 6px 12px !important;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s !important;
+    width: 100% !important;
+    border-radius: 0px !important;
+    margin-bottom: 10px;
+}
+.single-instalaciones .formulario_contacto_custom textarea{
+      min-height: 130px;
+}
+.single-instalaciones .formulario_contacto_custom br{
+  display: none;
+}
+.single-instalaciones .formulario_contacto_custom input[type="checkbox"] {
+    width: auto !important;
+    position: absolute !important;
+    line-height: 17px !important;
+    margin-bottom: 10px !important;
+    margin-top: -7px !important;
+}
+.single-instalaciones .formulario_contacto_custom .acepto{
+  margin-left: 20px;
+}
+.single-instalaciones .formulario_contacto_custom input[type="submit"] {
+      background-color: #d30d49 !important;
+    border: 0 none !important;
+    border-radius: 0;
+    color: white !important;
+    float: right !important;
+    width: auto !important;
+}
+
+#formulario_boletines{
+  background-color: #f1f1f1;
+  padding: 20px 30px;
+  border-top: 4px solid #c01534;
+}
+#formulario_boletines h1{
+    color: #c01534;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 24px;
+    background-image: url(images/newsletter.svg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    padding-top: 50px;
+    background-size: 70px;
+}
+#formulario_boletines input{
+  margin-bottom: 10px;
+  border: 0px;
+}
+#formulario_boletines span.acepto{
+  font-size: 14px;
+}
+#formulario_boletines span.acepto a{
+  font-weight: 600;
+}
+#formulario_boletines input[type="submit"]{
+  background-color: #c01534;
+  color: white;
+  font-weight: bold;
+}
+#formulario_boletines #status_form_boletines{
+  text-align: center;
+  color: #c01534;
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+/* programas - curso */
+
+#cursos_relacionados_container {
+	margin-bottom: 40px;
+}
+
+section.productos-relacionados-cursos {
+	margin-top: 40px;
+}
+
+section.productos-relacionados-cursos h2{
+	text-align: center;
+	font-size: 39px;
+}
+section.productos-relacionados-cursos p {
+	color: #003a5c;
+	text-align: center;
+    font-family: "Poppins", Sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.productos-relacionados-cursos-item {
+	background-color: #fff;
+	min-height: 420px;
+	margin: 10px;
+}
+
+.productos-relacionados-cursos-item-titulo {
+	min-height: 130px;	
+}
+.productos-relacionados-cursos-item h3{
+	padding: 20px;
+}
+
+a.productos-relacionados-cursos-item-boton {
+	fill: #003a5c;
+    color: #003a5c;
+    background-color: #FFFFFF !important;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #003a5c;
+    margin-left: 20px;
+}
+
+a.productos-relacionados-cursos-item-boton:hover {
+	
+    color: #FFFFFF;
+    background-color: #015ffd !important;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #0099FF;
+}
+
+
+
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_solicita_admision,
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_inscripcion,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_solicita_admision,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_inscripcion
+{
+    fill: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #FF002000;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #FFFFFF;
+    border-radius: 0px 0px 0px 0px;
+    padding: 15px 30px 15px 30px;
+    margin-right: 28px;
+}
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_solicita_admision:hover,
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_inscripcion:hover,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_solicita_admision:hover,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_inscripcion:hover
+{
+    color: #FFFFFF;
+    background-color: #003a5c;
+    border-color: #003a5c;
+}
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_solicita_informacion,
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_bono,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_solicita_informacion,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_bono
+{
+    fill: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #003a5c;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #003a5c;
+    border-radius: 0px 0px 0px 0px;
+    padding: 15px 30px 15px 30px;
+    margin-right: 28px;
+}
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_solicita_informacion:hover,
+.cursos-template-atic-green .type-cursos .servicios-cabecera a.enlace_bono:hover,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_solicita_informacion:hover,
+.cursos-template-camaravalencia-com .type-cursos .servicios-cabecera a.enlace_bono:hover
+{
+    background-color: #011d2d;
+}
+.cursos-template-atic-green #curso_botonera_lateral,
+.cursos-template-camaravalencia-com #curso_botonera_lateral
+{
+    position: fixed;
+    right: 0px;
+    top: calc(50% - 100px);
+    z-index: 99;
+}
+.cursos-template-atic-green #curso_botonera_lateral li,
+.cursos-template-camaravalencia-com #curso_botonera_lateral li
+{
+  list-style: none;
+  width: 100px;
+}
+
+
+#franja_programa_ampliado {
+	display:none;
+}
+
+
+.cursos-template-atic-green #curso_franja_sticky,
+.cursos-template-camaravalencia-com #curso_franja_sticky
+{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0px;
+    z-index: -1;
+    background: white;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #efeaea;
+    align-items: center;
+    opacity:0;
+    transition: opacity .1s ease-in-out;
+}
+.cursos-template-atic-green #curso_franja_sticky.sticky,
+.cursos-template-camaravalencia-com #curso_franja_sticky.sticky
+{
+  opacity: 1;
+  z-index: 9;
+}
+.cursos-template-atic-green #curso_franja_sticky .curso_franja_sticky_logo,
+.cursos-template-camaravalencia-com #curso_franja_sticky .curso_franja_sticky_logo
+ {
+   width: 155px;
+} 
+.cursos-template-atic-green #curso_franja_sticky a.enlace_solicita_admision,
+.cursos-template-atic-green #curso_franja_sticky a.enlace_inscripcion,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_solicita_admision,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_inscripcion
+{
+    color: #003A5D;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #003A5D;
+    border-radius: 0px 0px 0px 0px;
+    padding: 10px 25px 10px 25px;
+    margin-right: 28px;
+
+}
+.cursos-template-atic-green #curso_franja_sticky a.enlace_solicita_admision:hover,
+.cursos-template-atic-green #curso_franja_sticky a.enlace_solicita_admision:hover,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_inscripcion:hover,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_inscripcion:hover
+
+{
+    color: white ;
+    background-color: #003A5D;
+}
+.cursos-template-atic-green #curso_franja_sticky a.enlace_solicita_informacion,
+.cursos-template-atic-green #curso_franja_sticky a.enlace_bono,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_solicita_informacion,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_bono
+ {
+    color: white ;
+    background-color: #003A5D;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #003a5c;
+    border-radius: 0px 0px 0px 0px;
+    padding: 10px 25px 10px 25px;
+    margin-right: 28px;
+}
+.cursos-template-atic-green #curso_franja_sticky a.enlace_solicita_informacion:hover,
+.cursos-template-atic-green #curso_franja_sticky a.enlace_bono:hover,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_solicita_informacion:hover,
+.cursos-template-camaravalencia-com #curso_franja_sticky a.enlace_bono:hover
+{
+      background-color: #011d2d;
+}
+.cursos-template-atic-green #curso_franja_sticky .curso_franja_sticky_titulo,
+.cursos-template-camaravalencia-com #curso_franja_sticky .curso_franja_sticky_titulo
+{
+    color: #011d2d;
+        font-size: 20px;
+    font-weight: 600;
+}
+.cursos-template-atic-green .item_info_destacada_titulo,
+.cursos-template-camaravalencia-com .item_info_destacada_titulo
+{
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 60px;
+}
+.cursos-template-atic-green .item_info_destacada_titulo:before,
+.cursos-template-camaravalencia-com .item_info_destacada_titulo:before
+{
+    content: '';
+    background: #333;
+    width: 50px;
+    height: 1px;
+    position: absolute;
+    bottom: -15px;
+}
+.cursos-template-atic-green .item_info_destacada,
+.cursos-template-camaravalencia-com .item_info_destacada
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.cursos-template-atic-green .item_info_destacada > div,
+.cursos-template-camaravalencia-com .item_info_destacada > div
+{
+  display: block;
+}
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso_cabecera,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso_cabecera
+{
+  font-weight: bold;
+  font-weight: 14px;
+  margin-right: 5px;
+}
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso_valor,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso_valor
+{
+  font-weight: 14px;
+}
+.cursos-template-atic-green .item_info_destacada > div:first-child .item_info_destacada_curso_cabecera,
+.cursos-template-camaravalencia-com .item_info_destacada > div:first-child .item_info_destacada_curso_cabecera
+{
+  float: left;
+}
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_duracion,
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_horario,
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_modalidad,
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_precio,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_duracion,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_horario,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_modalidad,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_precio
+{
+  width: 50%;
+  float: left;
+  margin-bottom: 30px;
+  padding-left: 39px;
+  background-repeat: no-repeat;
+  background-position: left top 3px;
+  background-image: url(images/duracion.svg);
+  background-size: 18px;
+}
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_horario,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_horario
+{
+  background-image: url(images/horario.svg);
+}
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_modalidad,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_modalidad
+{
+  background-image: url(images/modalidad.svg);
+}
+.cursos-template-atic-green .item_info_destacada .item_info_destacada_curso.item_precio,
+.cursos-template-camaravalencia-com .item_info_destacada .item_info_destacada_curso.item_precio
+{
+  background-image: url(images/precio.svg);
+}
+.cursos-template-atic-green #franja_curso_contacto,
+.cursos-template-camaravalencia-com #franja_curso_contacto
+{
+    background-color: #F6F6F6;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.cursos-template-atic-green #franja_curso_contacto h2,
+.cursos-template-camaravalencia-com #franja_curso_contacto h2
+{
+  text-align: center;
+}
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado .formulario_lead{
+  width: 50%;
+  max-width: 100%;
+  display: table;
+  margin: 0 auto;
+}
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead input,
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead textarea,
+.cursos-template-atic-green  #franja_programa_ampliado input,
+.formulario_admision_curso input,
+.cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead input,
+.cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead textarea,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado input
+{
+      border: 1px solid #d5d5d5;
+      margin-bottom: 10px;
+}
+.formulario_admision_curso{
+    display: table;
+    margin: 0 auto;
+}
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead input[type="submit"],
+.cursos-template-atic-green  #franja_programa_ampliado input[type="submit"],
+.formulario_admision_curso input[type="submit"],
+.cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead input[type="submit"],
+.cursos-template-camaravalencia-com  #franja_programa_ampliado input[type="submit"]
+{
+      fill: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #003a5c;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #003a5c;
+    border-radius: 0px 0px 0px 0px;
+    padding: 10px 25px 10px 25px;
+    margin-right: 28px;
+    font-weight: bold;
+}
+.cursos-template-atic-green  #franja_programa_ampliado input[type="submit"],
+.cursos-template-camaravalencia-com  #franja_programa_ampliado input[type="submit"]
+{
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  font-weight: 500;
+}
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead  span.acepto,
+.cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead  span.acepto,
+.formulario_admision_curso span.acepto{
+  font-size: 14px;
+}
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead  span.acepto a,
+.cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead  span.acepto a,
+.formulario_admision_curso span.acepto a{
+  color: #003a5c;
+  font-weight: bold;
+}
+.cursos-template-atic-green  #franja_programa_ampliado h2,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado h2
+{
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.cursos-template-atic-green  #franja_programa_ampliado,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado
+{
+  background-color: #003a5c;
+      padding-top: 50px;
+    padding-bottom: 50px;
+}
+.cursos-template-atic-green  #franja_programa_ampliado br, 
+.cursos-template-camaravalencia-com  #franja_programa_ampliado br
+{
+  display: none;
+}
+/*.cursos-template-atic-green  #franja_programa_ampliado input[type="text"]{
+  width: calc(33.333% - 10px);
+  float: left;
+  margin-right: 10px;
+}*/
+.cursos-template-atic-green  #franja_programa_ampliado input[type="submit"],
+.cursos-template-camaravalencia-com  #franja_programa_ampliado input[type="submit"]
+{
+  display: block;
+  margin-top: 15px;
+}
+.cursos-template-atic-green  #franja_programa_ampliado  span.acepto,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado  span.acepto
+{
+  font-size: 14px;
+  margin-bottom: 15px ;
+  color: white;
+  clear: both;
+}
+.cursos-template-atic-green  #franja_programa_ampliado  span.acepto a, 
+.cursos-template-camaravalencia-com  #franja_programa_ampliado  span.acepto a
+{
+  font-weight: bold;
+  color: white;
+}
+
+.cursos-template-atic-green #franja_curso_contacto .formulario_lead .status_form_lead_custom,
+.cursos-template-atic-green  #franja_programa_ampliado .status_form_lead_folleto_custom,
+.cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead .status_form_lead_custom,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado .status_form_lead_folleto_custom
+{
+  text-align: center;
+  color: red;
+  font-style: italic;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.cursos-template-atic-green  #franja_programa_ampliado .status_form_lead_folleto_custom,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado .status_form_lead_folleto_custom
+{
+  color: white;
+}
+.cursos-template-atic-green #franja_curso_contacto .mensaje,
+.cursos-template-camaravalencia-com #franja_curso_contacto .mensaje
+{
+  text-align: center;
+  color: green;
+  font-style: italic;
+  font-size: 14px;
+}
+.cursos-template-atic-green  #franja_programa_ampliado .mensaje_folleto,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado .mensaje_folleto
+{
+  text-align: center;
+}
+
+.cursos-template-atic-green  #franja_programa_ampliado .mensaje_folleto a,
+.cursos-template-camaravalencia-com  #franja_programa_ampliado .mensaje_folleto a
+{
+    background: white;
+    color: #003a5c;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 15px 30px;
+}
+.titulo-admision-curso{
+  text-align: center;
+  font-size: 27px;
+    color: #003a5c;
+}
+.texto-admision-curso{
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+#div_curso_formulario_admision{
+  padding-top: 50px;
+  padding-bottom: 50px;
+      background: #f4f4f4;
+}
+
+.jornadas_patrocinadores h3{
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 0px;
+    padding-bottom: 8px;
+    font-weight: bold;
+    margin-top: 35px;
+}
+.jornadas_patrocinadores img{
+    padding: 10px;
+    max-width: 250px;
+}
+.servicios-pagina-container{
+  padding: 50px 0px;
+}
+.servicios-pagina-texto{
+  width: 800px !important;
+  max-width: 100%;
+  display: table;
+  margin: 0 auto;
+ /* text-align: center;*/
+}
+.servicios.type-servicios h3{
+    padding: 20px 20px 20px 0px;
+}
+.servicios.type-servicios h3 a{
+    color: #B20022;
+    font-weight: bold;
+    display: block;
+}
+
+.servicios.type-servicios .elementor-post__excerpt p{
+  padding-right: 20px;
+}
+
+@media (max-width: 1024px){
+  .lista_licitaciones .listado_contenedor .elementor-column-gap-default .elementor-column:nth-child(1) {
+      width: 100% !important
+  }
+  
+  .cursos-template-atic-green #curso_franja_sticky .curso_franja_sticky_logo,
+  .cursos-template-camaravalencia-com #curso_franja_sticky .curso_franja_sticky_logo
+  {
+    display: none;
+  }
+  
+  .cursos-template-atic-green #curso_franja_sticky,
+  .cursos-template-camaravalencia-com #curso_franja_sticky
+  {
+    display: block;
+  }
+  
+  .cursos-template-atic-green #curso_franja_sticky .curso_franja_sticky_titulo,
+  .cursos-template-camaravalencia-com #curso_franja_sticky .curso_franja_sticky_titulo
+  {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .cursos-template-atic-green #curso_franja_sticky .curso_franja_sticky_botones,
+  .cursos-template-camaravalencia-com #curso_franja_sticky .curso_franja_sticky_botones  
+  {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px){
+	
+	div.curso_franja_sticky_titulo {
+		display: none;
+	}
+	
+	
+	
+	.cursos-template-camaravalencia-com #curso_franja_sticky .curso_franja_sticky_botones a {
+		display: inline-table;
+		font-size: 11px;
+		padding: 10px 10px 10px 10px;
+	}
+	
+	.cursos-template-camaravalencia-com #curso_franja_sticky {
+		/*bottom: 0;*/
+		padding: 20px 20px;
+		margin-left: 10px;
+	}
+
+	
+	#curso_botonera_lateral {
+		left: 300px;
+		
+	}
+	#curso_botonera_lateral img {
+		width: 50%;
+		height: auto;
+		
+	}	
+  .cursos-template-atic-green #curso_franja_sticky a,
+  .cursos-template-camaravalencia-com #curso_franja_sticky a  
+  {
+    margin-bottom: 5px;
+  }
+  .cursos-template-atic-green #franja_curso_contacto .formulario_lead,
+  .cursos-template-atic-green  #franja_programa_ampliado .formulario_lead,
+  .cursos-template-camaravalencia-com #franja_curso_contacto .formulario_lead,
+  .cursos-template-camaravalencia-com  #franja_programa_ampliado .formulario_lead  
+  {
+    width: 100%;
+  }
+  .cursos-template-atic-green .item_info_destacada > div,
+  .cursos-template-camaravalencia-com .item_info_destacada > div
+  {
+    margin-top: 30px;
+  }
+  .single-instalaciones h4{
+    text-align: center !important;
+  }
+  .resumen_agenda .listado_detalle_agenda .elementor-col-30 > div > div, .resumen_agenda .listado_detalle_agenda .elementor-col-30 > div > div > div, .agenda_actividades .listado_detalle_agenda .elementor-col-30 > div > div, .agenda_actividades .listado_detalle_agenda .elementor-col-30 > div > div > div {
+      min-height: 200px;
+  }
+  .single-noticias h1{
+    font-weight: 28px !important;
+  }
+  .filtro_actividades .filtros_columna{
+    width: 100%;
+  }
+  .listado_prensa .jornada_fecha{
+    margin-left: 0px;
+  }
+  .elementor-location-footer .texto-ubicacion,
+  .elementor-location-footer .texto-telefono{
+    text-align: left !important;
+    padding-left: 20px;
+  }
+  #header{
+    padding: 10px 0px;
+  }
+  #header .elementor-widget-wrap{
+     justify-content: flex-start !important;
+  }
+  .elementor-location-header .elementor-menu-toggle{
+      width: 100%;
+      height: 40px;
+      background-color: #f8f8f8 !important;
+      background-image: url('images/menu.svg');
+      background-position: center right 15px;
+      background-repeat: no-repeat;
+      background-size: 30px;
+  }
+  .elementor-location-header .elementor-nav-menu--dropdown{
+    background-color: #f8f8f8 !important;
+    margin-top: 0px !important;
+
+  }
+  #header-bottom .elementor-nav-menu > li > a .sub-arrow {
+      display: block;
+  }
+  #header-bottom .elementor-nav-menu > li > ul > li > a{
+    background-color: white;
+  }
+  .logo_header .elementor-widget-container{
+    text-align: center !important;
+    margin-bottom: 10px;
+  }
+  div#contenedor_ofertas > div > div > div{
+    display: block;
+  }
+  .cursos-template-atic-green  #franja_programa_ampliado input[type="text"],
+  .cursos-template-camaravalencia-com  #franja_programa_ampliado input[type="text"]
+  {
+    width: 100%;
+    float: none;
+    margin-right: 10px;
+  }
+}
+
+.page-template-template_formacion *,
+.cursos-template-template_curso_libre *,
+.cursos-template-template_curso_estructurado *,
+
+.page-template-template_formacion .menu_escuela_negocios li a,
+.cursos-template-template_curso_libre .menu_escuela_negocios li a,
+.cursos-template-template_curso_estructurado  .menu_escuela_negocios li a,
+
+.page-template-template_formacion #oferta_formacion *,
+.cursos-template-template_curso_libre #oferta_formacion *,
+.cursos-template-template_curso_estructurado *{
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.home_formacion_proximos_cursos {
+  background-color: #F6F6F6;
+  padding: 50px 0px;
+}
+.home_formacion_proximos_cursos #oferta_formacion{
+  padding: 0px;
+}
+.home_formacion_proximos_cursos h2,
+.home_formacion_actualidad h2{
+    font-size: 20px;
+   /* margin-left: 10px;*/
+}
+
+.home_formacion_proximos_cursos .elementor-widget-button a
+{
+    background-color: #F6F6F6 !important;
+	
+    color: #003a5c;
+    border: 1px solid #003a5c;
+}
+
+.home_formacion_actualidad .elementor-widget-button a{
+   /* background-color: #F6F6F6 !important;*/
+	 background-color: #FFF !important;
+    color: #003a5c;
+    border: 1px solid #003a5c;
+}
+.home_formacion_proximos_cursos .elementor-widget-button a:hover,
+.home_formacion_actualidad .elementor-widget-button a:hover{
+    background-color: #003a5c !important;
+    color: #fff !important;
+}
+.home_formacion_actualidad{
+  padding: 50px 0px;
+}
+
+
+.home_formacion_actualidad h3,
+.lista_page_noticias h3{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+     padding: 0px 20px;
+     margin-top: 0px;
+     color:#003a5c;
+}
+.lista_page_noticias h3{
+  padding-top: 20px;
+}
+.home_formacion_actualidad .elementor-grid-item,
+.lista_page_noticias .elementor-grid-item{
+    padding: 15px;
+}
+
+.home_formacion_actualidad h3.title, .home_formacion_actualidad p{
+	text-align: left;
+	
+}
+
+.home_formacion_actualidad .fecha span{
+    margin: 0px;
+    color:#003a5c;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px;
+	padding: 20px;
+    display: block;
+}
+.home_formacion_actualidad .elementor-post__excerpt p,
+.lista_page_noticias .elementor-post__excerpt p{
+    font-weight:500;
+    margin-top: 10px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+    color: #575756;
+    font-size: 15px;
+}
+.home_formacion_actualidad .elementor-post__text,
+.lista_page_noticias .elementor-post__text{
+      background: #F6F6F6;
+}
+.home_formacion_actualidad .elementor-post__text:hover,
+.lista_page_noticias .elementor-post__text:hover{
+  /*background-color: #dfdfdf;*/
+	background-color: #003a5c;	
+}
+.home_formacion_actualidad .elementor-post__text:hover *,
+.lista_page_noticias .elementor-post__text:hover *
+ {
+	color: #fff;
+}
+
+ .news-suscripcion-container {
+    padding: 0px;
+    margin: 0px;
+    position: fixed;
+    right: -148px;
+    top: 230px;
+    width: 210px;
+    z-index: 1100;
+    box-shadow: 0px 0px 10px 1px rgba(119, 119, 119, 0.75);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(119, 119, 119, 0.75);
+}
+
+.ediciones_patrocinadores {
+/*	margin-top: 30px;
+	margin-bottom: 30px;	*/
+}
+
+.ediciones_patrocinadores_tipo {
+	margin-top: 30px;
+	
+}
+
+.ediciones_patrocinadores_tipolistado {
+	margin-bottom: 30px;
+	
+}
+
+.elementor-sticky--effects#header-bottom{
+  background-color: white;
+  padding: 10px 0px;
+}
+.elementor-sticky--effects#header-bottom .logo_header img{
+  height: 55px;
+  width: auto;
+}
+.elementor-sticky--effects.header-formacion{
+  background-color: white;
+  padding: 10px 0px;
+}
+.cursos-template .elementor-sticky--effects.header-formacion{
+  z-index: 9;
+}
+
+
+#boton_menu_formacion_solicita_info{
+  background-color: white !important;
+}
+
+#boton_menu_formacion_solicita_info:hover{
+  background-color: #003A5D !important;
+}

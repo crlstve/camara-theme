@@ -1,0 +1,17 @@
+@media only screen and (max-width: 768px) {
+    .news-suscripcion-container {
+        display:none;
+    }
+    .programas-formacion-cajas .elementor-widget-heading{
+      width: auto;
+    }
+    .header-formacion .elementor-col-66 > div{
+        justify-content: center !important;
+    }
+    .menu-top-header .elementor-nav-menu{
+        justify-content: center !important;
+    }
+    .menu-top-header .elementor-nav-menu  a{
+        padding: 5px 16px !important;
+    }
+}

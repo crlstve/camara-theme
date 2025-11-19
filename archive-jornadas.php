@@ -1,0 +1,421 @@
+<?php 
+get_header(); 
+
+// Preparar variables PHP
+global $wpdb;
+
+// Obtener filtros de GET
+$filtro_programa = !empty($_GET['filtro_programa']) ? $_GET['filtro_programa'] : null;
+$filtro_lugar = !empty($_GET['filtro_lugar']) ? $_GET['filtro_lugar'] : null;
+$filtro_fecha = !empty($_GET['filtro_fecha']) ? $_GET['filtro_fecha'] : null;
+
+// Obtener IDs filtrados usando la función del plugin
+$ids_query = get_posts_ids($filtro_programa, $filtro_lugar, $filtro_fecha);
+
+// Paginación
+$pagina = get_query_var('paged') ? get_query_var('paged') : 1;
+
+// Query principal
+$query = new WP_Query(array(
+    'post_type'       => array('cursos', 'ediciones', 'jornadas'),
+    'posts_per_page'  => 6,
+    'paged'           => $pagina,
+    'post__in'        => $ids_query,
+    'orderby'         => 'post__in',
+));
+
+// URL base para paginación
+$direccion = get_post_type_archive_link('jornadas');
+?>
+
+<main class="archive-jornadas">
+    <!-- Sección cabecera con Hero Slider y Calendario -->
+    <section class="hero-slider-section bg-gray-50 py-12 elementor-section elementor-section-boxed">
+        <div class="container mx-auto px-4 elementor-container">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
+                
+                <!-- Columna Izquierda: Info del Evento Actual + Slider -->
+                <div class="lg:col-span-9">
+                    
+                    <!-- Splide Slider -->
+                    <div class="splide hero-events-splide " id="hero-events-slider">
+                        <div class="splide__track">
+                            <ul class="splide__list max-h-96" id="hero-slider-wrapper">
+                                <!-- Los slides se cargarán dinámicamente via AJAX -->
+                                <li class="splide__slide flex items-center justify-center h-96">
+                                    <div class="text-center text-gray-400">
+                                        <p>Cargando eventos...</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Paginación del Splide -->
+                        <ul class="splide__pagination mt-4"></ul>
+                    </div>
+                    
+                </div>
+                
+                <!-- Columna Derecha: Calendario -->
+                <div class="lg:col-span-4 absolute right-0 bottom-0 translate-y-12 min-w-4/12">
+                    <div class="bg-white rounded-2xl shadow-md p-6">
+                        <!-- Header del calendario con navegación -->
+                        <div class="flex items-center justify-between mb-2">
+                            <button id="calendar-prev">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                            </button>
+                            
+                            <h3 id="calendar-month-year" class="calendar-month-title"></h3>
+                            
+                            <button id="calendar-next">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Días de la semana -->
+                        <div class="grid grid-cols-7 gap-2 mb-2">
+                            <div class="text-center text-xs font-medium text-gray-500">L</div>
+                            <div class="text-center text-xs font-medium text-gray-500">M</div>
+                            <div class="text-center text-xs font-medium text-gray-500">M</div>
+                            <div class="text-center text-xs font-medium text-gray-500">J</div>
+                            <div class="text-center text-xs font-medium text-gray-500">V</div>
+                            <div class="text-center text-xs font-medium text-gray-500">S</div>
+                            <div class="text-center text-xs font-medium text-gray-500">D</div>
+                        </div>
+                        
+                        <!-- Grid de días -->
+                        <div id="calendar-days" class="grid grid-cols-7 gap-1">
+                            <!-- Los días se generarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <!-- Sección de filtros -->
+    <section class="filtros-actividades py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="filtros flex flex-wrap gap-4 justify-center">
+                
+                <!-- Filtro: Tipo de Evento -->
+                <div class="filtro-columna">
+                    <label for="filter_programa" class="block mb-2 font-semibold"><?php _e('Tipo de Evento', 'camaravalencia'); ?></label>
+                    <select id="filter_programa" name="filter_programa" class="filter_selector_select w-full px-4 py-2 border rounded">
+                        <option value=""><?php _e('SELECCIONA TIPO EVENTO', 'camaravalencia'); ?></option>
+                        <?php
+                        $programas = get_terms(array('taxonomy' => 'programa', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
+                        foreach ($programas as $programa) :
+                            $selected = ($filtro_programa == $programa->slug) ? 'selected' : '';
+                        ?>
+                            <option value="<?= esc_attr($programa->slug); ?>" <?= $selected; ?>>
+                                <?= esc_html($programa->name); ?>
+                            </option>
+                        <?php endforeach; ?>
+                        <option value="jornadas" <?= ($filtro_programa == 'jornadas') ? 'selected' : ''; ?>>
+                            <?php _e('Jornadas y Seminarios', 'camaravalencia'); ?>
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Filtro: Lugar -->
+                <div class="filtro-columna">
+                    <label for="filter_lugar" class="block mb-2 font-semibold"><?php _e('Lugar', 'camaravalencia'); ?></label>
+                    <select id="filter_lugar" name="filter_lugar" class="filter_selector_select w-full px-4 py-2 border rounded">
+                        <option value=""><?php _e('SELECCIONA LUGAR', 'camaravalencia'); ?></option>
+                        <?php
+                        $fecha_actual = date('Ymd');
+                        $lugares = get_terms(array('taxonomy' => 'lugar', 'hide_empty' => false, 'orderby' => 'name', 'parent' => 0));
+                        $lugares_con_eventos = array();
+                        
+                        foreach ($lugares as $lugar) {
+                            $tiene_eventos = get_posts(array(
+                                'post_type' => array('jornadas'/*, 'ediciones'*/),
+                                'post_status' => 'publish',
+                                'numberposts' => 1,
+                                'meta_query' => array(
+                                    'relation' => 'OR',
+                                    array('key' => 'jornadas_fechainicio', 'value' => $fecha_actual, 'compare' => '>='),
+                                    //array('key' => 'ediciones_fechainicio', 'value' => $fecha_actual, 'compare' => '>=')
+                                ),
+                                'tax_query' => array(array('taxonomy' => 'lugar', 'field' => 'term_id', 'terms' => $lugar->term_id)),
+                                'fields' => 'ids'
+                            ));
+                            if (!empty($tiene_eventos)) {
+                                $lugares_con_eventos[] = $lugar;
+                            }
+                        }
+                        
+                        foreach ($lugares_con_eventos as $lugar) :
+                            $selected = ($filtro_lugar == $lugar->slug) ? 'selected' : '';
+                        ?>
+                            <option value="<?= esc_attr($lugar->slug); ?>" <?= $selected; ?>>
+                                <?= esc_html($lugar->name); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- Filtro: Cuándo -->
+                <div class="filtro-columna">
+                    <label for="filter_fecha" class="block mb-2 font-semibold"><?php _e('Cuándo', 'camaravalencia'); ?></label>
+                    <select id="filter_fecha" name="filter_fecha" class="filter_selector_select w-full px-4 py-2 border rounded">
+                        <option value=""><?php _e('SELECCIONA FECHA', 'camaravalencia'); ?></option>
+                        <option value="1" <?= ($filtro_fecha == 1) ? 'selected' : ''; ?>><?php _e('Hoy', 'camaravalencia'); ?></option>
+                        <option value="2" <?= ($filtro_fecha == 2) ? 'selected' : ''; ?>><?php _e('Esta semana', 'camaravalencia'); ?></option>
+                        <option value="3" <?= ($filtro_fecha == 3) ? 'selected' : ''; ?>><?php _e('Próxima semana', 'camaravalencia'); ?></option>
+                        <option value="4" <?= ($filtro_fecha == 4) ? 'selected' : ''; ?>><?php _e('Este mes', 'camaravalencia'); ?></option>
+                        <option value="5" <?= ($filtro_fecha == 5) ? 'selected' : ''; ?>><?php _e('Mes que viene', 'camaravalencia'); ?></option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Listado de actividades -->
+    <section class="listado-actividades py-12 md:py-36 elementor-section elementor-section-boxed">
+        <div id="listado_actividades" class="container elementor-container mx-auto px-4 flex flex-col">
+            
+            <?php if ($query->have_posts()) : ?>
+                
+                <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <?php while ($query->have_posts()) : $query->the_post();
+                        $post_id = get_the_ID();
+                        $meta = get_post_meta($post_id);
+                        $post_type = get_post_type();
+                        $titulo = get_the_title();
+                        
+                        // Preparar datos
+                        $fechainicio = date("d", strtotime($meta[$post_type . "_fechainicio"][0]));
+                        $fechafin = date("M", strtotime($meta[$post_type . "_fechainicio"][0]));
+                        
+                        $id_lugar = get_post_meta($post_id, $post_type . "_lugar", true);
+                        $tlugar = get_term($id_lugar, "lugar");
+                        $lugar = $tlugar ? $tlugar->name : '';
+                        
+                        $url = get_the_permalink();
+                        $url_externa = "";
+                        
+                        // Contenido / descripción
+                        $content = wp_strip_all_tags(get_field('field_jornadas_objetivos', $post_id));
+                        $hora = get_field('field_jornadas_horainicio', $post_id);
+                        $precio = get_field('field_jornadas_preciodescrip', $post_id);
+                        
+                        // Check jornada club
+                        $id_jornada_crm_club = function_exists('es_jornada_club') ? es_jornada_club($post_id) : false;
+                        if ($id_jornada_crm_club) {
+                            $url = "https://club.camaravalencia.com/evento/" . $id_jornada_crm_club . "/";
+                        }
+                        
+                        // Evento manual
+                        if ($post_type == 'jornadas') {
+                            $url_evento_manual = $meta["jornadas_urleventomanual"][0];
+                            if (!empty($url_evento_manual)) $url_externa = $url_evento_manual;
+                        }
+                        
+                        // Logos de agenda
+                        $logo_tic = get_field('field_jornadas_agendatic', $post_id);
+                        $logo_sostenibilidad = get_field('field_jornadas_agendasostenibilidad', $post_id);
+                        $logo_internacional = get_field('field_jornadas_agendainternacional', $post_id);
+                        
+                        // Lógica específica por tipo de post
+                        $curso = $wpdb->get_var("SELECT post_id FROM cv_postmeta AS a LEFT JOIN cv_posts AS b ON a.post_id = b.ID WHERE a.meta_value='$post_id' AND b.post_status = 'publish'");
+                        
+                        if ($post_type == 'ediciones' && !empty($curso)) {
+                            $image_id = get_post_thumbnail_id($curso);
+                            $id_area = get_post_meta($curso, "cursos_area", true);
+                            $tarea = get_term($id_area, "area");
+                            $area = (!is_wp_error($tarea) && is_object($tarea)) ? $tarea->name : '';
+                            $id_duracion = get_post_meta($curso, "cursos_duracion", true);
+                            $tduracion = get_term($id_duracion, "duracion");
+                            $duracion = $tduracion ? $tduracion->name : '';
+                            $titulo = get_the_title($curso);
+                            $url = get_the_permalink($curso);
+                            
+                            // Logos para ediciones
+                            $logo_tic = get_field('field_ediciones_agendatic', $curso);
+                            $logo_sostenibilidad = get_field('field_ediciones_agendasostenibilidad', $curso);
+                            $logo_internacional = get_field('field_ediciones_agendainternacional', $curso);
+                        } else {
+                            $image_id = get_post_thumbnail_id($post_id);
+                            $id_area = get_post_meta($post_id, "_yoast_wpseo_primary_area", true);
+                            $tarea = get_term($id_area, "area");
+                            $area = $tarea ? $tarea->name : '';
+                            
+                            // Logos según área
+                            if ($area == 'Tics y Digitalización') {
+                                $logo_tic = true;
+                            }
+                            if ($area == 'Sostenibilidad') {
+                                $logo_sostenibilidad = true;
+                            }
+                            if ($area == 'Internacional') {
+                                $logo_internacional = true;
+                            }
+                            
+                            if ($post_type == 'cursos') {
+                                $edicion = $wpdb->get_var("SELECT meta_value FROM cv_postmeta WHERE post_id='$post_id' AND meta_key='cursos_edicionactiva'");
+                                if ($edicion) {
+                                    $meta_edicion = get_post_meta($edicion);
+                                    $fechainicio = date("d", strtotime($meta_edicion["ediciones_fechainicio"][0]));
+                                    $fechafin = date("M", strtotime($meta_edicion["ediciones_fechainicio"][0]));
+                                    $id_area = get_post_meta($post_id, "cursos_area", true);
+                                    $tarea = get_term($id_area, "area");
+                                    $area = $tarea ? $tarea->name : '';
+                                    $id_duracion = get_post_meta($post_id, "cursos_duracion", true);
+                                    $tduracion = get_term($id_duracion, "duracion");
+                                    $duracion = $tduracion ? $tduracion->name : '';
+                                    $id_lugar = get_post_meta($edicion, "ediciones_lugar", true);
+                                    $tlugar = get_term($id_lugar, "lugar");
+                                    $lugar = $tlugar ? $tlugar->name : '';
+                                }
+                            }
+                        }
+                        
+                        $image_url = wp_get_attachment_image_src($image_id, 'img_instalaciones');
+                        $descrip_lugar = get_post_meta($post_id, "jornadas_lugardescrip", true);
+                        if ($descrip_lugar) $lugar = wp_strip_all_tags($descrip_lugar);
+                        
+                        // Generar subtítulo según el tipo de post
+                        $subtitulo = '';
+                        if ($post_type == 'ediciones' && isset($duracion)) {
+                            $subtitulo = $duracion . ($area ? ' - ' . $area : '');
+                        } else {
+                            $subtitulo = ucfirst($post_type) . ($area ? ' - ' . $area : '');
+                        }
+                        
+                        // Colores para el label
+                        if ($subtitulo == 'Jornadas' || strpos($subtitulo, 'Jornadas') !== false) {
+                            $color_label = '#AF9343';
+                            $bg_label = '#F8EABF';
+                        } elseif ($subtitulo == 'Curso' || strpos($subtitulo, 'Cursos') !== false) {
+                            $color_label = '#2EA5DA';
+                            $bg_label = '#D6ECF5';
+                        } elseif (strpos($subtitulo, 'Ediciones') !== false || strpos($subtitulo, 'Edición') !== false) {
+                            $color_label = '#046244';
+                            $bg_label = '#C9EDE1';
+                        } else {
+                            $color_label = '#000000';
+                            $bg_label = 'rgba(0, 0, 0, 0.1)';
+                        }
+                        
+                        // Preparar variables compatibles con el template del widget
+                        $evento_fecha = $fechainicio . ' ' . $fechafin;
+                        $max_text = (strlen($content) > 80) ? substr($content, 0, 80) . '...' : $content;
+                        
+                        $img = $image_url ? $image_url[0] : get_field('field_jornadas_imagenbanner', $post_id);
+                        
+                        // Logo según tipo
+                        $logo = '';
+                        if ($logo_tic) {
+                            $logo = '<img class="agenda-logo " src="' . get_stylesheet_directory_uri() . '/images/logos/tic.png" alt="Tic Negocios" />';
+                        }
+                        if ($logo_sostenibilidad) {
+                            $logo = '<img class="agenda-logo " src="' . get_stylesheet_directory_uri() . '/images/logos/sostenibilidad.png" alt="Sostenibilidad" />';
+                        }
+                        if ($logo_internacional) {
+                            $logo = '<img class="agenda-logo " src="' . get_stylesheet_directory_uri() . '/images/logos/internacional.png" alt="Internacional" />';
+                        }
+                        
+                        $final_url = !empty($url_externa) ? $url_externa : $url;
+                    ?>
+                    <!-- Card de actividad vertical -->
+                    <li class="rounded-lg shadow-md bg-white border border-[#e0e0e0] overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+                        <a class="agenda-item flex flex-col h-full" href="<?= esc_url($final_url); ?>">
+                            <figure class="w-full h-48 bg-cover bg-center flex items-end p-4" style="background-image: url('<?= esc_url($img); ?>');">
+                                <?php if ($logo) : ?>
+                                    <div class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full h-fit w-fit">
+                                        <?= $logo; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </figure>
+                            <div class="agenda-item-content w-full px-5 py-3 flex flex-col justify-between grow">
+                                <header>
+                                    <h4 class="text-left text-lg font-semibold"><?= esc_html($titulo); ?></h4>
+                                </header>
+                                <p class="agenda-item-body text-left pb-3 text-sm text-gray-600 grow">
+                                    <?php if ($hora) : ?>
+                                        <span class="agenda-meta font-medium"><?= esc_html($hora); ?> |</span>
+                                    <?php endif; ?>
+                                    <?php if ($precio) : ?>
+                                        <span class="agenda-meta font-medium"><?= esc_html($precio); ?> | </span>
+                                    <?php endif; ?>
+                                    <?php if ($lugar) : ?>
+                                        <span class="agenda-meta font-medium"><?= esc_html($lugar); ?></span>
+                                    <?php endif; ?>
+                                    <?php if ($max_text) : ?>
+                                        <span class="block mt-2"><?= esc_html($max_text); ?></span>
+                                    <?php endif; ?>
+                                </p>
+                                <footer class="evento-meta flex justify-between items-center pt-4 border-t border-[#e0e0e0]">
+                                    <time class="evento-fecha text-sm font-medium"><?= esc_html($evento_fecha); ?></time>
+                                    <span class="evento-clase rounded-full py-1 px-3 text-xs font-medium" style="color:<?= $color_label; ?>;background-color:<?= $bg_label; ?>;">
+                                        <?php 
+                                        $subtitulo_partes = explode(' - ', $subtitulo);
+                                        echo esc_html($subtitulo_partes[0]); 
+                                        ?>
+                                    </span>
+                                </footer>
+                            </div>
+                        </a>
+                    </li>
+                    
+                    <?php endwhile; ?>
+                    
+                </ul>
+                
+                <!-- Paginación -->
+                <div class="paginacion mt-12 flex justify-center">
+                    <div class="flex items-center gap-2">
+                        <?php
+                        $pagination = paginate_links(array(
+                            'base'      => $direccion . '%_%',
+                            'current'   => $pagina,
+                            'total'     => $query->max_num_pages,
+                            'prev_text' => '‹',
+                            'next_text' => '›',
+                            'type'      => 'array',
+                            'add_args'  => array(
+                                'filtro_programa' => $filtro_programa,
+                                'filtro_lugar'    => $filtro_lugar,
+                                'filtro_fecha'    => $filtro_fecha
+                            ),
+                        ));
+                        
+                        if ($pagination) {
+                            foreach ($pagination as $page) {
+                                // Detectar si es el enlace actual
+                                if (strpos($page, 'current') !== false) {
+                                    echo '<span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1a1a1a] text-white text-sm font-medium">' . strip_tags($page) . '</span>';
+                                } else {
+                                    // Limpiar el HTML para extraer solo el contenido
+                                    $clean_page = preg_replace('/<a[^>]*>(.*?)<\/a>/i', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" href="$2">$1</a>', $page);
+                                    echo str_replace('<a ', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" ', $page);
+                                }
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+                
+            <?php else : ?>
+                
+                <div class="sin-resultados text-center py-12">
+                    <p class="text-xl text-gray-600"><?php _e('No existe ningún evento con estos filtros', 'camaravalencia'); ?></p>
+                </div>
+                
+            <?php endif; ?>
+            
+            <?php wp_reset_postdata(); ?>
+            
+        </div>
+    </section>
+</main>
+
+
+<?php get_footer(); ?>
