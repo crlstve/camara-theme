@@ -197,14 +197,9 @@
         @apply mx-2 my-0 text-lg font-light;
     }
 
-    button#calendar-prev,
-    button#calendar-next {
-        @apply rounded-full p-2 transition-colors hover:bg-gray-100;
-        border: none;
-        aspect-ratio: 1;
-        height: 1.5rem;
-        width: 1.5rem;
-        transition-duration: 0.3s;
+    header > button#calendar-prev,
+    header > button#calendar-next {
+        @apply rounded-full p-2 transition-colors bg-gray-100 hover:bg-gray-300 cursor-pointer;
     }
 
     .calendar-day {
@@ -243,7 +238,9 @@
     .splide__pagination__page.is-active {
         @apply bg-gray-900;
     }
-
+        ul.splide__pagination>li>button {
+            @apply p-3 border-none rounded-full w-3 h-3 bg-gray-400 transition-colors hover:bg-gray-900;
+        }
     /* ========================================
        ELEMENTOR COMPATIBILITY
        ======================================== */

@@ -60,7 +60,7 @@ $direccion = get_post_type_archive_link('jornadas');
                 <div class="lg:col-span-4 absolute right-0 bottom-0 translate-y-12 min-w-4/12">
                     <div class="bg-white rounded-2xl shadow-md p-6">
                         <!-- Header del calendario con navegación -->
-                        <div class="flex items-center justify-between mb-2">
+                        <header class="flex items-center justify-between mb-2">
                             <button id="calendar-prev">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -74,7 +74,7 @@ $direccion = get_post_type_archive_link('jornadas');
                                     <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </button>
-                        </div>
+                        </header>
                         
                         <!-- Días de la semana -->
                         <div class="grid grid-cols-7 gap-2 mb-2">
