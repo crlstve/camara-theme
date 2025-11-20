@@ -17,7 +17,7 @@ $pagina = get_query_var('paged') ? get_query_var('paged') : 1;
 
 // Query principal
 $query = new WP_Query(array(
-    'post_type'       => array('cursos', 'ediciones', 'jornadas'),
+    'post_type'       => array('cursos'/*, 'ediciones'*/, 'jornadas'),
     'posts_per_page'  => 6,
     'paged'           => $pagina,
     'post__in'        => $ids_query,
@@ -189,7 +189,8 @@ $direccion = get_post_type_archive_link('jornadas');
                         $meta = get_post_meta($post_id);
                         $post_type = get_post_type();
                         $titulo = get_the_title();
-                        
+                            $tipo_jornada = get_field('field_jornadas_tipojornada', $post_id );
+                            $get_term = get_term( $tipo_jornada ); 
                         // Preparar datos
                         $fechainicio = date("d", strtotime($meta[$post_type . "_fechainicio"][0]));
                         $fechafin = date("M", strtotime($meta[$post_type . "_fechainicio"][0]));
@@ -226,22 +227,7 @@ $direccion = get_post_type_archive_link('jornadas');
                         // Lógica específica por tipo de post
                         $curso = $wpdb->get_var("SELECT post_id FROM cv_postmeta AS a LEFT JOIN cv_posts AS b ON a.post_id = b.ID WHERE a.meta_value='$post_id' AND b.post_status = 'publish'");
                         
-                        if ($post_type == 'ediciones' && !empty($curso)) {
-                            $image_id = get_post_thumbnail_id($curso);
-                            $id_area = get_post_meta($curso, "cursos_area", true);
-                            $tarea = get_term($id_area, "area");
-                            $area = (!is_wp_error($tarea) && is_object($tarea)) ? $tarea->name : '';
-                            $id_duracion = get_post_meta($curso, "cursos_duracion", true);
-                            $tduracion = get_term($id_duracion, "duracion");
-                            $duracion = $tduracion ? $tduracion->name : '';
-                            $titulo = get_the_title($curso);
-                            $url = get_the_permalink($curso);
-                            
-                            // Logos para ediciones
-                            $logo_tic = get_field('field_ediciones_agendatic', $curso);
-                            $logo_sostenibilidad = get_field('field_ediciones_agendasostenibilidad', $curso);
-                            $logo_internacional = get_field('field_ediciones_agendainternacional', $curso);
-                        } else {
+
                             $image_id = get_post_thumbnail_id($post_id);
                             $id_area = get_post_meta($post_id, "_yoast_wpseo_primary_area", true);
                             $tarea = get_term($id_area, "area");
@@ -275,7 +261,7 @@ $direccion = get_post_type_archive_link('jornadas');
                                     $lugar = $tlugar ? $tlugar->name : '';
                                 }
                             }
-                        }
+                        
                         
                         $image_url = wp_get_attachment_image_src($image_id, 'img_instalaciones');
                         $descrip_lugar = get_post_meta($post_id, "jornadas_lugardescrip", true);
@@ -290,19 +276,19 @@ $direccion = get_post_type_archive_link('jornadas');
                         }
                         
                         // Colores para el label
-                        if ($subtitulo == 'Jornadas' || strpos($subtitulo, 'Jornadas') !== false) {
-                            $color_label = '#AF9343';
-                            $bg_label = '#F8EABF';
-                        } elseif ($subtitulo == 'Curso' || strpos($subtitulo, 'Cursos') !== false) {
-                            $color_label = '#2EA5DA';
-                            $bg_label = '#D6ECF5';
-                        } elseif (strpos($subtitulo, 'Ediciones') !== false || strpos($subtitulo, 'Edición') !== false) {
-                            $color_label = '#046244';
-                            $bg_label = '#C9EDE1';
-                        } else {
-                            $color_label = '#000000';
-                            $bg_label = 'rgba(0, 0, 0, 0.1)';
-                        }
+                                        if($get_term->name == 'Jornada'){
+                                            $color_label = '#AF9343';
+                                            $bg_label = '#F8EABF';
+                                        } elseif($get_term->name == 'Webinar' || $get_term->name == 'Curso'){
+                                            $color_label = '#2EA5DA';
+                                            $bg_label = '#D6ECF5';
+                                        } elseif(strpos($get_term->name, 'Taller') !== false){
+                                            $color_label = '#046244';
+                                            $bg_label = '#C9EDE1';
+                                        } else{
+                                            $color_label = '#404248';
+                                            $bg_label = '#E0E0E0';
+                                        }
                         
                         // Preparar variables compatibles con el template del widget
                         $evento_fecha = $fechainicio . ' ' . $fechafin;
@@ -355,10 +341,7 @@ $direccion = get_post_type_archive_link('jornadas');
                                 <footer class="evento-meta flex justify-between items-center pt-4 border-t border-[#e0e0e0]">
                                     <time class="evento-fecha text-sm font-medium"><?= esc_html($evento_fecha); ?></time>
                                     <span class="evento-clase rounded-full py-1 px-3 text-xs font-medium" style="color:<?= $color_label; ?>;background-color:<?= $bg_label; ?>;">
-                                        <?php 
-                                        $subtitulo_partes = explode(' - ', $subtitulo);
-                                        echo esc_html($subtitulo_partes[0]); 
-                                        ?>
+                                        <?= esc_html($get_term->name); ?>
                                     </span>
                                 </footer>
                             </div>
@@ -373,32 +356,32 @@ $direccion = get_post_type_archive_link('jornadas');
                 <div class="paginacion mt-12 flex justify-center">
                     <div class="flex items-center gap-2">
                         <?php
-                        $pagination = paginate_links(array(
-                            'base'      => $direccion . '%_%',
-                            'current'   => $pagina,
-                            'total'     => $query->max_num_pages,
-                            'prev_text' => '‹',
-                            'next_text' => '›',
-                            'type'      => 'array',
-                            'add_args'  => array(
-                                'filtro_programa' => $filtro_programa,
-                                'filtro_lugar'    => $filtro_lugar,
-                                'filtro_fecha'    => $filtro_fecha
-                            ),
-                        ));
-                        
-                        if ($pagination) {
-                            foreach ($pagination as $page) {
-                                // Detectar si es el enlace actual
-                                if (strpos($page, 'current') !== false) {
-                                    echo '<span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1a1a1a] text-white text-sm font-medium">' . strip_tags($page) . '</span>';
-                                } else {
-                                    // Limpiar el HTML para extraer solo el contenido
-                                    $clean_page = preg_replace('/<a[^>]*>(.*?)<\/a>/i', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" href="$2">$1</a>', $page);
-                                    echo str_replace('<a ', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" ', $page);
+                            $pagination = paginate_links(array(
+                                'base'      => $direccion . '%_%',
+                                'current'   => $pagina,
+                                'total'     => $query->max_num_pages,
+                                'prev_text' => '‹',
+                                'next_text' => '›',
+                                'type'      => 'array',
+                                'add_args'  => array(
+                                    'filtro_programa' => $filtro_programa,
+                                    'filtro_lugar'    => $filtro_lugar,
+                                    'filtro_fecha'    => $filtro_fecha
+                                ),
+                            ));
+                            
+                            if ($pagination) {
+                                foreach ($pagination as $page) {
+                                    // Detectar si es el enlace actual
+                                    if (strpos($page, 'current') !== false) {
+                                        echo '<span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1a1a1a] text-white text-sm font-medium">' . strip_tags($page) . '</span>';
+                                    } else {
+                                        // Limpiar el HTML para extraer solo el contenido
+                                        $clean_page = preg_replace('/<a[^>]*>(.*?)<\/a>/i', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" href="$2">$1</a>', $page);
+                                        echo str_replace('<a ', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" ', $page);
+                                    }
                                 }
                             }
-                        }
                         ?>
                     </div>
                 </div>
