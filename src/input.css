@@ -31,44 +31,29 @@
     /* ========================================
        HERO SECTION BUTTONS
        ======================================== */
-    header.single-hero > div > .single-hero-content > a.single-hero-button,
-    div.camara-button-container > a.single-hero-button {
-        @apply border px-6 py-3 rounded-full;
-    }
 
     header.single-hero > div > .single-hero-content > div > a.single-hero-button,
     div.camara-button-container > a.single-hero-button {
-        color: var(--color-jornada);
-        border: 1px solid var(--color-jornada);
-        font-size: 0.9rem;
-        transition: all 0.3s;
-    }
-
-    header.single-hero > div > .single-hero-content > div > a.single-hero-button:hover,
-    div.camara-button-container > a.single-hero-button:hover {
-        background-color: var(--color-jornada);
-        color: var(--bg-color-jornada);
+        @apply border px-6 py-3 rounded-full bg-(--bg-color-jornada) text-base! text-(--color-jornada)! border-(--color-jornada) border text-[0.9rem] transition-all duration-300 hover:text-(--bg-color-jornada)! hover:bg-(--color-jornada)!  ;
     }
 
     /* ========================================
        TITLES
        ======================================== */
     h2.camara-title {
-        @apply mb-12 border-b-2 w-fit px-2 pb-0 font-light;
-        border-color: var(--color-default);
-        line-height: 1.3em;
+        @apply mb-9! border-b-2 w-fit px-2 pb-0 font-light border-(--color-default) leading-[1.3em]; 
     }
 
     /* ========================================
        ARTICLES
        ======================================== */
-    article.camara-article {
-        @apply pb-6;
-    }
+        article.camara-article {
+            @apply pb-6;
+        }
 
-    article.camara-article ul > li > ul {
-        @apply ml-6;
-    }
+        article.camara-article ul > li > ul {
+            @apply ml-6;
+        }
 
     /* ========================================
        CONTACT SECTION
@@ -78,12 +63,7 @@
     }
 
     section.camara-section-contact:after {
-        @apply absolute top-0 right-0 bottom-0 w-10/12 h-full rounded-l-2xl;
-        content: "";
-        background: var(--bg-color-jornada);
-        max-height: 50%;
-        z-index: -10;
-        transform: translateY(58.333%);
+        @apply absolute top-0 right-0 bottom-0 w-10/12 h-full rounded-l-2xl content-[''] bg-(--bg-color-jornada) max-h-6/12 -z-10 translate-y-7/12;
     }
 
     section.camara-section-contact > div.elementor-container > div.camara-contact-contain {
@@ -107,33 +87,6 @@
         @apply rounded-md bg-white h-fit px-8 py-12 shadow-md flex items-center lg:col-span-4 lg:col-start-8;
     }
 
-    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="text"],
-    input[type="email"],
-    textarea {
-        @apply mb-4 rounded-md w-full px-4 py-2;
-        border-color: var(--color-gray-300);
-    }
-
-    :is(section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="text"],
-    input[type="email"],
-    textarea):focus {
-        @apply outline-none ring-2;
-        --tw-ring-color: var(--color-jornada);
-    }
-
-    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="submit"] {
-        @apply px-6 py-3 text-sm rounded-full transition-opacity;
-        border-color: var(--color-jornada);
-        color: var(--color-jornada);
-        background-color: transparent;
-    }
-
-    section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="submit"]:hover {
-        background-color: var(--color-jornada);
-        color: var(--bg-color-jornada);
-        opacity: 0.9;
-    }
-
     section.camara-section-contact > div.elementor-container > div.camara-form-contain input[type="submit"] {
         transition: all 0.3s;
     }
@@ -142,18 +95,30 @@
         @apply flex flex-col gap-2 pl-5;
     }
 
-    section.camara-section-contact .custom-logo {
-        @apply h-auto max-w-48;
-    }
+        section.camara-section-contact .custom-logo {
+            @apply h-auto max-w-48;
+        }
+
+        form.formulario-contacto-custom{
+            @apply flex flex-col gap-3; 
+        }
+
+        form.formulario-contacto-custom > input[type="text"],
+        form.formulario-contacto-custom > input[type="email"],
+        form.formulario-contacto-custom > textarea{
+            @apply border-(--color-gray-300) mb-4 rounded-md w-full px-4 py-2 gap-3;
+        }
+
+        form.formulario-contacto-custom>input[type="submit"]{
+            @apply px-6 py-3 text-sm rounded-full! transition-opacity;
+        }
 
     /* ========================================
        AGENDA ITEMS
        ======================================== */
     figure > div.agenda-figure > img.agenda-logo,
     .agenda-logo {
-        max-width: 8rem;
-        max-height: 1.5rem;
-        object-fit: contain;
+        @apply max-w-32 max-h-6 object-contain;
     }
 
     .agenda-item {
@@ -193,14 +158,21 @@
         @apply flex items-center;
     }
 
-    h3.calendar-month-title {
-        @apply mx-2 my-0 text-lg font-light;
+    /* Target by ID (simpler) */
+    header#calendar-header > h3#calendar-month-year {
+        @apply mx-2 my-2! text-base! font-light! text-(--megamenu-text-color)!;
     }
 
+    /* Buttons: base styles */
     header > button#calendar-prev,
     header > button#calendar-next {
-        @apply rounded-full p-2 transition-colors bg-gray-100 hover:bg-gray-300 cursor-pointer;
+        @apply rounded-full! transition-colors! bg-(--bg-color-default)! cursor-pointer border-0! hover:bg-(--megamenu-text-color)! hover:stroke-(--bg-color-default)! aspect-square p-2!;
     }
+
+        header>button#calendar-prev > svg,
+        header>button#calendar-next > svg {
+            @apply w-3 h-3 group-hover:stroke-(--bg-color-default)!;
+        }
 
     .calendar-day {
         @apply flex items-center justify-center rounded-md border text-sm transition-colors cursor-pointer;
@@ -218,33 +190,32 @@
     }
 
     .calendar-day.has-events {
-        @apply relative;
-        background-color: var(--bg-color-default);
+        @apply relative bg-(--bg-color-default);
     }
 
     .calendar-day.selected {
-        @apply font-semibold text-white;
-        background-color: var(--color-text);
+        @apply font-semibold text-white bg-(--color-text);
     }
 
     .calendar-day.today {
-        @apply border font-semibold;
-        border-color: var(--color-text);
+        @apply border font-semibold bg-(--color-text);
     }
 
     /* ========================================
        SPLIDE PAGINATION
        ======================================== */
-    .splide__pagination__page.is-active {
-        @apply bg-gray-900;
-    }
+        .splide__pagination__page.is-active {
+            @apply bg-gray-900;
+        }
         ul.splide__pagination>li>button {
-            @apply p-3 border-none rounded-full w-3 h-3 bg-gray-400 transition-colors hover:bg-gray-900;
+            @apply p-1! border-none rounded-full w-3 h-3 bg-gray-400 transition-colors hover:bg-gray-900;
         }
     /* ========================================
        ELEMENTOR COMPATIBILITY
        ======================================== */
-    .elementor-section-boxed .elementor-container {
-        max-width: 1140px;
-    }
+
+        .logo-form {
+            @apply max-w-32;
+        }
+
 }

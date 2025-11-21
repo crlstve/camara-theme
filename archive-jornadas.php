@@ -30,7 +30,7 @@ $direccion = get_post_type_archive_link('jornadas');
 
 <main class="archive-jornadas">
     <!-- Sección cabecera con Hero Slider y Calendario -->
-    <section class="hero-slider-section bg-gray-50 py-12 elementor-section elementor-section-boxed">
+    <section class="hero-slider-section bg-gray-50 pt-8 pb-12 elementor-section elementor-section-boxed">
         <div class="container mx-auto px-4 elementor-container">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
                 
@@ -40,7 +40,7 @@ $direccion = get_post_type_archive_link('jornadas');
                     <!-- Splide Slider -->
                     <div class="splide hero-events-splide " id="hero-events-slider">
                         <div class="splide__track">
-                            <ul class="splide__list max-h-96" id="hero-slider-wrapper">
+                            <ul class="splide__list max-h-104" id="hero-slider-wrapper">
                                 <!-- Los slides se cargarán dinámicamente via AJAX -->
                                 <li class="splide__slide flex items-center justify-center h-96">
                                     <div class="text-center text-gray-400">
@@ -57,11 +57,11 @@ $direccion = get_post_type_archive_link('jornadas');
                 </div>
                 
                 <!-- Columna Derecha: Calendario -->
-                <div class="lg:col-span-4 absolute right-0 bottom-0 translate-y-12 min-w-4/12">
+                <div class="lg:col-span-4 absolute right-0 bottom-0 translate-y-3 min-w-4/12">
                     <div class="bg-white rounded-2xl shadow-md p-6">
                         <!-- Header del calendario con navegación -->
-                        <header class="flex items-center justify-between mb-2">
-                            <button id="calendar-prev">
+                        <header id="calendar-header" class="flex items-center justify-between mb-3">
+                            <button id="calendar-prev" class="group">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                                 </svg>
@@ -69,7 +69,7 @@ $direccion = get_post_type_archive_link('jornadas');
                             
                             <h3 id="calendar-month-year" class="calendar-month-title"></h3>
                             
-                            <button id="calendar-next">
+                            <button id="calendar-next" class="group">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
@@ -275,20 +275,26 @@ $direccion = get_post_type_archive_link('jornadas');
                             $subtitulo = ucfirst($post_type) . ($area ? ' - ' . $area : '');
                         }
                         
-                        // Colores para el label
-                                        if($get_term->name == 'Jornada'){
-                                            $color_label = '#AF9343';
-                                            $bg_label = '#F8EABF';
-                                        } elseif($get_term->name == 'Webinar' || $get_term->name == 'Curso'){
-                                            $color_label = '#2EA5DA';
-                                            $bg_label = '#D6ECF5';
-                                        } elseif(strpos($get_term->name, 'Taller') !== false){
-                                            $color_label = '#046244';
-                                            $bg_label = '#C9EDE1';
-                                        } else{
-                                            $color_label = '#404248';
-                                            $bg_label = '#E0E0E0';
-                                        }
+                        // Colores para el label   
+                            if($get_term->name == 'Jornada'){
+                                $color_label = '#AF9343';
+                                $bg_label = '#F8EABF';
+                            } elseif($get_term->name == 'Webinar' || $get_term->name == 'Curso'){
+                                $color_label = '#2EA5DA';
+                                $bg_label = '#D6ECF5';
+                            } elseif($get_term->name == 'Charla'){
+                                $color_label = '#D67F2A';
+                                $bg_label = '#FAE3D4';
+                            } elseif($get_term->name == 'Taller'){
+                                $color_label = '#046244';
+                                $bg_label = '#C9EDE1';
+                            } elseif($get_term->name == 'Encuentro Empresarial'){
+                                $color_label = '#E28996';
+                                $bg_label = '#720F1C';
+                            } else{
+                                $color_label = '#404247';
+                                $bg_label = '#F4F5FC';
+                            }
                         
                         // Preparar variables compatibles con el template del widget
                         $evento_fecha = $fechainicio . ' ' . $fechafin;

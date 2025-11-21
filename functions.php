@@ -18,6 +18,8 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
 function hello_elementor_child_enqueue_scripts() {
 	wp_enqueue_style(
 		'hello-elementor-child-style',get_stylesheet_directory_uri() . '/style.css',['hello-elementor-theme-style',],'1.0.0'
+
+        
 	);	
 	
 	wp_enqueue_style( 'mytheme-responsive-style', get_stylesheet_directory_uri() . '/css/style_responsive.css', '1.0.0' );
