@@ -219,3 +219,15 @@
         }
 
 }
+
+
+
+
+.sostenible-plus{
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(95deg, rgba(61, 103, 104, 0.64) 0%, rgba(71, 184, 171, 0) 100%);
+    border-radius: 9999px;
+    padding: 0.2rem 0.5rem;
+    transition: all 0.3s ease;
+}

@@ -70,6 +70,55 @@
                         $color = '#BA0727';   
                     }
 
+
+            // Logica de consulta aforo en SCGV
+                    function botones_inscripcion_jornada() {
+                        global $wpdb;
+                        global $_conf;
+                        if ($url_externa) {
+                            $out.= '<a class="boton-listado-formacion" href="'.$url_externa.'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';	
+                        }else if ($url_evento_manual) {
+                            $out.= '<a class="boton-listado-formacion" href="'.$url_evento_manual.'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';	
+                        }
+                        else {
+                            if ($id_proyecto_crm) {
+                                $datos_agenda_ws = get_info_ws_agenda_global($id_proyecto_crm, ICL_LANGUAGE_CODE);
+                                
+                                $id_jornada_crm_club = es_jornada_club($post_id);
+                                if ($datos_agenda_ws["Plazas_Vacantes"] > 0) {
+                                    
+                                    
+                                    if ($id_jornada_crm_club) {
+                                        $url = "https://club.camaravalencia.com/evento/".$id_jornada_crm_club."/";
+                                        $out.= '<a class="boton-listado-formacion" href="'.$url.'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';	
+                                    }else {
+                                        if ($datos_agenda_ws["P_Streaming"] == "0" or $datos_agenda_ws["P_Streaming"] == "2") {
+                                        if ($datos_agenda_ws["UrlInscripcion"])
+                                            $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcion"].'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';				
+                                        }
+                                        elseif ($datos_agenda_ws["P_Streaming"] == "1") {
+                                            if ($datos_agenda_ws["UrlInscripcion"])
+                                                $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcion"].'" target="_blank">'.__('Inscripción Presencial','camaravalencia').'</a>';
+                                            if	($datos_agenda_ws["UrlInscripcionStreaming"])			
+                                                $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcionStreaming"].'" target="_blank">'.__('Inscripción Online','camaravalencia').'</a>';
+                                        }
+                                        elseif ($datos_agenda_ws["P_Streaming"] == "3") {
+                                            if ($datos_agenda_ws["UrlInscripcionStreaming"])
+                                                $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcionStreaming"].'" target="_blank">'.__('Inscripción Online','camaravalencia').'</a>';						
+                                        }
+                                    }
+                                }
+                                else{
+                                    if ($datos_agenda_ws["UrlListaEspera"] && !$id_jornada_crm_club)
+                                        $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlListaEspera"].'" target="_blank">'.__('Lista de espera','camaravalencia').'</a>';			
+                                }
+                            }			
+                        }
+                        return $out;
+                    }
+
+
+
 ?>
 <style>
     :root{
@@ -77,6 +126,7 @@
         --color-jornada: <?= $color ?>;
     }
 </style>
+
     <main>
 
         <header role="hero-image" class="elementor-section elementor-section-boxed single-hero relative" style="background-color:<?= $bg_color ?>;">
@@ -94,6 +144,7 @@
                     <h1 style="color:<?= $color ?>;" class="pb-12 mt-0"><?php the_title(); ?></h1>
 
                     <div class="my-6">
+
                         <?php if($duracion): ?>
                             
                             <span><?= $duracion ?></span>
@@ -109,7 +160,9 @@
                             <span style="border-left: 1px solid #ccc; padding-left: 6px;">Gratuito</span>
 
                         <?php endif; ?>
+
                     </div>
+                    
                     <?php if ($url_externa): ?>
 
                         <div>
