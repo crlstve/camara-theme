@@ -70,54 +70,10 @@
                         $color = '#BA0727';   
                     }
 
-
-            // Logica de consulta aforo en SCGV
-                    function botones_inscripcion_jornada() {
-                        global $wpdb;
-                        global $_conf;
-                        if ($url_externa) {
-                            $out.= '<a class="boton-listado-formacion" href="'.$url_externa.'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';	
-                        }else if ($url_evento_manual) {
-                            $out.= '<a class="boton-listado-formacion" href="'.$url_evento_manual.'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';	
-                        }
-                        else {
-                            if ($id_proyecto_crm) {
-                                $datos_agenda_ws = get_info_ws_agenda_global($id_proyecto_crm, ICL_LANGUAGE_CODE);
-                                
-                                $id_jornada_crm_club = es_jornada_club($post_id);
-                                if ($datos_agenda_ws["Plazas_Vacantes"] > 0) {
-                                    
-                                    
-                                    if ($id_jornada_crm_club) {
-                                        $url = "https://club.camaravalencia.com/evento/".$id_jornada_crm_club."/";
-                                        $out.= '<a class="boton-listado-formacion" href="'.$url.'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';	
-                                    }else {
-                                        if ($datos_agenda_ws["P_Streaming"] == "0" or $datos_agenda_ws["P_Streaming"] == "2") {
-                                        if ($datos_agenda_ws["UrlInscripcion"])
-                                            $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcion"].'" target="_blank">'.__('Inscripción','camaravalencia').'</a>';				
-                                        }
-                                        elseif ($datos_agenda_ws["P_Streaming"] == "1") {
-                                            if ($datos_agenda_ws["UrlInscripcion"])
-                                                $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcion"].'" target="_blank">'.__('Inscripción Presencial','camaravalencia').'</a>';
-                                            if	($datos_agenda_ws["UrlInscripcionStreaming"])			
-                                                $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcionStreaming"].'" target="_blank">'.__('Inscripción Online','camaravalencia').'</a>';
-                                        }
-                                        elseif ($datos_agenda_ws["P_Streaming"] == "3") {
-                                            if ($datos_agenda_ws["UrlInscripcionStreaming"])
-                                                $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlInscripcionStreaming"].'" target="_blank">'.__('Inscripción Online','camaravalencia').'</a>';						
-                                        }
-                                    }
-                                }
-                                else{
-                                    if ($datos_agenda_ws["UrlListaEspera"] && !$id_jornada_crm_club)
-                                        $out.= '<a class="boton-listado-formacion" href="'.$datos_agenda_ws["UrlListaEspera"].'" target="_blank">'.__('Lista de espera','camaravalencia').'</a>';			
-                                }
-                            }			
-                        }
-                        return $out;
-                    }
-
-
+                    // Usa el web service para obtener datos adicionales del evento
+                     $datos_agenda_ws = get_info_ws_agenda_global($id_proyecto_crm, ICL_LANGUAGE_CODE);
+                    // Si el evento es exclusivo para el club, redirige a la página externa
+                    $id_jornada_crm_club = es_jornada_club(get_the_ID());
 
 ?>
 <style>
@@ -157,9 +113,11 @@
                         
                         <?php else: ?>
 
-                            <span style="border-left: 1px solid #ccc; padding-left: 6px;">Gratuito</span>
+                            <span style="border-left: 1px solid #ccc; padding-left: 6px;"><?php _e('Gratuito', 'camaravalencia'); ?></span>
 
                         <?php endif; ?>
+
+                            
 
                     </div>
                     
@@ -167,19 +125,48 @@
 
                         <div>
                             <a role="button" class="single-hero-button px-6 py-3 rounded-full" href="<?= esc_url($url_externa); ?>" target="_blank" rel="noopener noreferrer">
-                                Inscripción
+                                <?php _e('Inscripción', 'camaravalencia'); ?>
                             </a>
                         </div>
 
-                    <?php elseif ($pdf_programa): ?>
+                    <?php elseif (!empty($datos_agenda_ws) && $datos_agenda_ws["Plazas_Vacantes"] > 0): ?>
 
-                        <div>
-                            <a role="button" class="single-hero-button px-6 py-3 rounded-full border" href="<?= esc_url($pdf_programa); ?>" target="_blank" rel="noopener noreferrer">
-                                Descargar programa
-                            </a>
+                        <div class="flex flex-row gap-4">
+
+                            <?php if($datos_agenda_ws["UrlInscripcion"] && ($datos_agenda_ws["P_Streaming"] != "3")): ?>
+
+                                    <a role="button" class="single-hero-button px-6 py-3 rounded-full" href="<?= esc_url($datos_agenda_ws["UrlInscripcion"]); ?>" target="_blank" rel="noopener noreferrer">
+                                        <?php esc_html_e('Inscripción', 'camaravalencia'); ?>
+                                    </a>
+
+                            <?php endif; ?>
+
+                            <?php if( $datos_agenda_ws["UrlInscripcionStreaming"] && ($datos_agenda_ws["P_Streaming"] == "3" || $datos_agenda_ws["P_Streaming"] == "1")): ?> 
+
+                                    <a role="button" class="single-hero-button px-6 py-3 rounded-full" href="<?= esc_url($datos_agenda_ws["UrlInscripcionStreaming"]); ?>" target="_blank" rel="noopener noreferrer">
+                                        <?php esc_html_e('Inscripción Online', 'camaravalencia'); ?>
+                                    </a>
+
+                            <?php endif; ?>
+
                         </div>
-                        
-                    <?php endif; ?>
+
+
+                        <?php var_dump($datos_agenda_ws); ?>
+
+                    
+
+                    <?php elseif ($datos_agenda_ws["UrlListaEspera"] && !$id_jornada_crm_club): ?>
+
+                        <div>  
+
+                            <a role="button" class="single-hero-button px-6 py-3 rounded-full" href="<?= esc_url($datos_agenda_ws["UrlListaEspera"]); ?>" target="_blank" rel="noopener noreferrer">
+                                <?php _e('Lista de espera', 'camaravalencia'); ?>
+                            </a>
+
+                        </div>
+
+                    <?php endif; ?> 
 
                 </div>
 
@@ -259,7 +246,7 @@
 
                         <article class="camara-article">
 
-                            <h2 class="camara-title">Objetivos</h2>    
+                            <h2 class="camara-title"><?php _e('Objetivos', 'camaravalencia'); ?></h2>    
 
                             <?= $objetivo; ?>
 
@@ -271,7 +258,7 @@
 
                         <article class="camara-article">
 
-                            <h2 class="camara-title">Dirigido a</h2>  
+                            <h2 class="camara-title"><?php _e('Dirigido a', 'camaravalencia'); ?></h2>  
 
                             <?= $target; ?>
 
@@ -283,7 +270,7 @@
 
                         <article class="camara-article">
 
-                            <h2 class="camara-title">Más información</h2>  
+                            <h2 class="camara-title"><?php _e('Más información', 'camaravalencia'); ?></h2>  
 
                             <?= $mas_informacion; ?>
 
@@ -300,7 +287,7 @@
 
                         <section class="camara-section">
 
-                            <h2 class="camara-title">Programa</h2>                            
+                            <h2 class="camara-title"><?php _e('Programa', 'camaravalencia'); ?></h2>                            
 
                             <ul class="w-full border-collapse mt-6 pt-4 flex flex-col gap-6">
                                     <?php foreach($programa_fila as $fila): ?>
@@ -368,7 +355,7 @@
 
                         <div class="camara-button-container mt-12 flex justify-center">
                             <a role="button" class="single-hero-button" href="<?= esc_url($pdf_programa); ?>" target="_blank" rel="noopener noreferrer">
-                                Descargar programa
+                                <?php _e('Descargar programa', 'camaravalencia'); ?>
                             </a>
                         </div>
 
