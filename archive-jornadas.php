@@ -4,10 +4,12 @@ get_header();
 // Preparar variables PHP
 global $wpdb;
 
+
 // Obtener filtros de GET
 $filtro_programa = !empty($_GET['filtro_programa']) ? $_GET['filtro_programa'] : null;
 $filtro_lugar = !empty($_GET['filtro_lugar']) ? $_GET['filtro_lugar'] : null;
 $filtro_fecha = !empty($_GET['filtro_fecha']) ? $_GET['filtro_fecha'] : null;
+$filtro_tipojornada = !empty($_GET['filter_tipojornada']) ? $_GET['filter_tipojornada'] : null;
 
 // Obtener IDs filtrados usando la función del plugin
 $ids_query = get_posts_ids($filtro_programa, $filtro_lugar, $filtro_fecha);
@@ -15,14 +17,28 @@ $ids_query = get_posts_ids($filtro_programa, $filtro_lugar, $filtro_fecha);
 // Paginación
 $pagina = get_query_var('paged') ? get_query_var('paged') : 1;
 
+// Preparar tax_query para tipojornada
+$tax_query = array();
+if ($filtro_tipojornada) {
+    $tax_query[] = array(
+        'taxonomy' => 'tipojornada',
+        'field'    => 'slug',
+        'terms'    => $filtro_tipojornada,
+    );
+}
+
 // Query principal
-$query = new WP_Query(array(
-    'post_type'       => array('cursos'/*, 'ediciones'*/, 'jornadas'),
+$query_args = array(
+    'post_type'       => array('cursos', 'jornadas'),
     'posts_per_page'  => 6,
     'paged'           => $pagina,
     'post__in'        => $ids_query,
     'orderby'         => 'post__in',
-));
+);
+if (!empty($tax_query)) {
+    $query_args['tax_query'] = $tax_query;
+}
+$query = new WP_Query($query_args);
 
 // URL base para paginación
 $direccion = get_post_type_archive_link('jornadas');
@@ -100,8 +116,7 @@ $direccion = get_post_type_archive_link('jornadas');
     <!-- Sección de filtros -->
     <section class="filtros-actividades py-12 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="filtros flex flex-wrap gap-4 justify-center">
-                
+            <form method="get" id="filtros-actividades-form" class="filtros flex flex-wrap gap-4 justify-center mb-8">
                 <!-- Filtro: Tipo de Evento -->
                 <div class="filtro-columna">
                     <label for="filter_programa" class="block mb-2 font-semibold"><?php _e('Tipo de Evento', 'camaravalencia'); ?></label>
@@ -121,7 +136,6 @@ $direccion = get_post_type_archive_link('jornadas');
                         </option>
                     </select>
                 </div>
-
                 <!-- Filtro: Lugar -->
                 <div class="filtro-columna">
                     <label for="filter_lugar" class="block mb-2 font-semibold"><?php _e('Lugar', 'camaravalencia'); ?></label>
@@ -172,8 +186,28 @@ $direccion = get_post_type_archive_link('jornadas');
                         <option value="5" <?= ($filtro_fecha == 5) ? 'selected' : ''; ?>><?php _e('Mes que viene', 'camaravalencia'); ?></option>
                     </select>
                 </div>
-
-            </div>
+                <!-- Filtro: Tipo de Jornada -->
+                <div class="filtro-columna">
+                    <label for="filter_tipojornada" class="block mb-2 font-semibold"><?php _e('Tipo de Jornada', 'camaravalencia'); ?></label>
+                    <select id="filter_tipojornada" name="filter_tipojornada" class="filter_selector_select w-full px-4 py-2 border rounded">
+                        <option value=""><?php _e('SELECCIONA TIPO JORNADA', 'camaravalencia'); ?></option>
+                        <?php
+                        $tipojornadas = get_terms(array('taxonomy' => 'tipojornada', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
+                        $filtro_tipojornada = !empty($_GET['filter_tipojornada']) ? $_GET['filter_tipojornada'] : null;
+                        foreach ($tipojornadas as $tipo) :
+                            $selected = ($filtro_tipojornada == $tipo->slug) ? 'selected' : '';
+                        ?>
+                            <option value="<?= esc_attr($tipo->slug); ?>" <?= $selected; ?>>
+                                <?= esc_html($tipo->name); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="filtro-columna flex items-end gap-2">
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded font-semibold">Aplicar filtros</button>
+                    <button type="button" id="reset-filtros" class="px-6 py-2 bg-gray-300 text-gray-800 rounded font-semibold">Limpiar filtros</button>
+                </div>
+            </form>
         </div>
     </section>
     <!-- Listado de actividades -->
@@ -405,6 +439,32 @@ $direccion = get_post_type_archive_link('jornadas');
         </div>
     </section>
 </main>
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selects = document.querySelectorAll('.filter_selector_select');
+    selects.forEach(function(select) {
+        select.addEventListener('change', function() {
+            // Construir la URL con todos los filtros
+            const params = new URLSearchParams(window.location.search);
+            selects.forEach(function(s) {
+                if (s.value) {
+                    params.set(s.name, s.value);
+                } else {
+                    params.delete(s.name);
+                }
+            });
+            window.location.search = params.toString();
+        });
+    });
+    document.getElementById('reset-filtros').addEventListener('click', function() {
+        // Limpiar selects
+        document.querySelectorAll('.filter_selector_select').forEach(function(select) {
+            select.value = '';
+        });
+        // Limpiar parámetros de la URL
+        window.location.href = window.location.pathname;
+    });
+});
+</script>
 
 <?php get_footer(); ?>
