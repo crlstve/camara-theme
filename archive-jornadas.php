@@ -44,7 +44,7 @@ $direccion = get_post_type_archive_link('jornadas');
                                 <!-- Los slides se cargarán dinámicamente via AJAX -->
                                 <li class="splide__slide flex items-center justify-center h-96">
                                     <div class="text-center text-gray-400">
-                                        <p>Cargando eventos...</p>
+                                        <p><?php _e('Cargando eventos...', 'camaravalencia'); ?></p>
                                     </div>
                                 </li>
                             </ul>
