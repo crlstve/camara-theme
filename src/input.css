@@ -147,8 +147,8 @@
     /* ========================================
        CALENDAR & SLIDER
        ======================================== */
-    h2.slider-calendar-title {
-        @apply mb-4 text-xl font-bold text-gray-900 mb-4;
+    .hero-slider-section h2.slider-calendar-title {
+        @apply mb-4 text-2xl! font-bold text-gray-900 mb-4;
     }
 
     .hero-events-splide {

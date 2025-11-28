@@ -46,6 +46,7 @@ jQuery(document).ready(function ($) {
     // Cargar eventos por fecha via AJAX
     function loadEventsByDate(date) {
         const dateStr = formatDate(date);
+        console.log('Cargando eventos para:', dateStr); // <-- Debug
 
         $.ajax({
             url: MyAjax.url,
@@ -61,7 +62,7 @@ jQuery(document).ready(function ($) {
                         slides += `
                                 <li class="splide__slide" style="height: 384px;">
                                     <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center h-full">
-                                        <div class="order-2 md:order-1 p-6 col-span-5">
+                                        <div class="order-2 md:order-1 pl-2 pr-6 py-6 col-span-5">
                                             <span class="inline-block px-3 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full mb-3">${event.type}</span>
                                             <h2 class="slider-calendar-title">${event.title}</h2>
                                             <div class="space-y-2 mb-6 text-sm">
@@ -76,8 +77,7 @@ jQuery(document).ready(function ($) {
                                             <img src="${event.image}" alt="${event.title}" class="w-full object-cover rounded-2xl shadow-lg" style="height: 320px;" loading="lazy" />
                                         </div>
                                     </div>
-                                </li>
-                            `;
+                                </li>`;
                     });
                     $('#hero-slider-wrapper').html(slides);
                 } else {
@@ -169,7 +169,7 @@ jQuery(document).ready(function ($) {
 
     // Event listeners del calendario
     $(document).on('click', '.calendar-day:not(.disabled)', function () {
-        const dateStr = $(this).data('date');
+        const dateStr = String($(this).data('date'));
         if (!dateStr) return;
 
         const year = parseInt(dateStr.substring(0, 4));
