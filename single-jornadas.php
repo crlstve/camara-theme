@@ -103,7 +103,7 @@
 
                         <?php if($duracion): ?>
                             
-                            <span><?= $duracion ?></span>
+                            <span><?= $duracion ?> h</span>
 
                         <?php endif; ?>
 
@@ -150,10 +150,6 @@
                             <?php endif; ?>
 
                         </div>
-
-
-                        <?php var_dump($datos_agenda_ws); ?>
-
                     
 
                     <?php elseif ($datos_agenda_ws["UrlListaEspera"] && !$id_jornada_crm_club): ?>
