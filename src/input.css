@@ -10,6 +10,7 @@
         --cammara-accent-color: #C81E35;
         --megamenu-border-radius: 0.3rem;
         --camara-box-shadow: -1px 5px 8px 0px rgba(0, 0, 0, 0.1);
+        --mid-grey: #E7E9F2;
     }
 
     :root {
@@ -167,13 +168,8 @@
     /* Buttons: base styles */
     header > button#calendar-prev,
     header > button#calendar-next {
-        @apply rounded-full! transition-colors! bg-(--bg-color-default)! cursor-pointer border-0! hover:bg-(--megamenu-text-color)! hover:stroke-(--bg-color-default)! aspect-square p-2!;
+        @apply rounded-full! transition-colors! bg-(--bg-color-default)! cursor-pointer border-0! hover:bg-(--megamenu-text-color)! aspect-square p-2!;
     }
-
-        header>button#calendar-prev > svg,
-        header>button#calendar-next > svg {
-            @apply w-3 h-3 group-hover:stroke-(--bg-color-default)!;
-        }
 
     .calendar-day {
         @apply flex items-center justify-center rounded-md border text-sm transition-colors cursor-pointer;
@@ -199,7 +195,7 @@
     }
 
     .calendar-day.today {
-        @apply border font-semibold bg-(--color-text);
+        @apply border font-semibold bg-(--mid-grey) text-(--color-text);
     }
 
     /* ========================================
@@ -221,8 +217,16 @@
 
 }
 
-
-
+div.filtro-columna > select.filter_selector_select {
+    @apply border-(--color-gray-300) rounded-lg px-4 py-2 w-full;
+}
+.filtro-columna > button#reset-filtros,
+.filtro-columna > button#apply-filtros {
+    @apply bg-transparent rounded-full px-6 py-2 border border-(--megamenu-text-color) text-(--megamenu-text-color) hover:bg-(--megamenu-text-color) hover:text-white font-semibold transition-colors text-xs;
+}
+.filter-button:hover {
+    @apply bg-(--megamenu-text-color) text-white!;
+}
 
 .sostenible-plus{
     text-decoration: none;
