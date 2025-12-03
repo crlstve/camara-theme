@@ -78,16 +78,16 @@ $direccion = get_post_type_archive_link('jornadas');
                         <!-- Header del calendario con navegación -->
                         <header id="calendar-header" class="flex items-center justify-between mb-3">
                             <button id="calendar-prev" class="group">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-3 h-3">
+                                    <path class="group-hover:stroke-(--megamenu-bg-color)" stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                                 </svg>
                             </button>
                             
                             <h3 id="calendar-month-year" class="calendar-month-title"></h3>
                             
                             <button id="calendar-next" class="group">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-3 h-3">
+                                    <path class="group-hover:stroke-(--megamenu-bg-color)" stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </button>
                         </header>
@@ -114,14 +114,13 @@ $direccion = get_post_type_archive_link('jornadas');
         </div>
     </section>
     <!-- Sección de filtros -->
-    <section class="filtros-actividades py-12 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <form method="get" id="filtros-actividades-form" class="filtros flex flex-wrap gap-4 justify-center mb-8">
+    <section class="filtros-actividades pt-20 pb-8 elementor-section elementor-section-boxed">
+        <div class="mx-auto px-4 elementor-container">
+            <form method="get" id="filtros-actividades-form" class="filtros grid md:grid-cols-6 gap-4 justify-center">
                 <!-- Filtro: Tipo de Evento -->
                 <div class="filtro-columna">
-                    <label for="filter_programa" class="block mb-2 font-semibold"><?php _e('Tipo de Evento', 'camaravalencia'); ?></label>
-                    <select id="filter_programa" name="filter_programa" class="filter_selector_select w-full px-4 py-2 border rounded">
-                        <option value=""><?php _e('SELECCIONA TIPO EVENTO', 'camaravalencia'); ?></option>
+                    <select id="filter_programa" name="filter_programa" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
+                        <option value=""><?php _e('Tipo de evento', 'camaravalencia'); ?></option>
                         <?php
                         $programas = get_terms(array('taxonomy' => 'programa', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
                         foreach ($programas as $programa) :
@@ -138,9 +137,8 @@ $direccion = get_post_type_archive_link('jornadas');
                 </div>
                 <!-- Filtro: Lugar -->
                 <div class="filtro-columna">
-                    <label for="filter_lugar" class="block mb-2 font-semibold"><?php _e('Lugar', 'camaravalencia'); ?></label>
-                    <select id="filter_lugar" name="filter_lugar" class="filter_selector_select w-full px-4 py-2 border rounded">
-                        <option value=""><?php _e('SELECCIONA LUGAR', 'camaravalencia'); ?></option>
+                    <select id="filter_lugar" name="filter_lugar" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
+                        <option value=""><?php _e('Lugar', 'camaravalencia'); ?></option>
                         <?php
                         $fecha_actual = date('Ymd');
                         $lugares = get_terms(array('taxonomy' => 'lugar', 'hide_empty' => false, 'orderby' => 'name', 'parent' => 0));
@@ -173,12 +171,10 @@ $direccion = get_post_type_archive_link('jornadas');
                         <?php endforeach; ?>
                     </select>
                 </div>
-
                 <!-- Filtro: Cuándo -->
                 <div class="filtro-columna">
-                    <label for="filter_fecha" class="block mb-2 font-semibold"><?php _e('Cuándo', 'camaravalencia'); ?></label>
-                    <select id="filter_fecha" name="filter_fecha" class="filter_selector_select w-full px-4 py-2 border rounded">
-                        <option value=""><?php _e('SELECCIONA FECHA', 'camaravalencia'); ?></option>
+                    <select id="filter_fecha" name="filter_fecha" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
+                        <option value=""><?php _e('Fecha', 'camaravalencia'); ?></option>
                         <option value="1" <?= ($filtro_fecha == 1) ? 'selected' : ''; ?>><?php _e('Hoy', 'camaravalencia'); ?></option>
                         <option value="2" <?= ($filtro_fecha == 2) ? 'selected' : ''; ?>><?php _e('Esta semana', 'camaravalencia'); ?></option>
                         <option value="3" <?= ($filtro_fecha == 3) ? 'selected' : ''; ?>><?php _e('Próxima semana', 'camaravalencia'); ?></option>
@@ -188,9 +184,8 @@ $direccion = get_post_type_archive_link('jornadas');
                 </div>
                 <!-- Filtro: Tipo de Jornada -->
                 <div class="filtro-columna">
-                    <label for="filter_tipojornada" class="block mb-2 font-semibold"><?php _e('Tipo de Jornada', 'camaravalencia'); ?></label>
-                    <select id="filter_tipojornada" name="filter_tipojornada" class="filter_selector_select w-full px-4 py-2 border rounded">
-                        <option value=""><?php _e('SELECCIONA TIPO JORNADA', 'camaravalencia'); ?></option>
+                    <select id="filter_tipojornada" name="filter_tipojornada" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
+                        <option value=""><?php _e('Tipo de jornada', 'camaravalencia'); ?></option>
                         <?php
                         $tipojornadas = get_terms(array('taxonomy' => 'tipojornada', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
                         $filtro_tipojornada = !empty($_GET['filter_tipojornada']) ? $_GET['filter_tipojornada'] : null;
@@ -203,15 +198,15 @@ $direccion = get_post_type_archive_link('jornadas');
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="filtro-columna flex items-end gap-2">
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded font-semibold">Aplicar filtros</button>
-                    <button type="button" id="reset-filtros" class="px-6 py-2 bg-gray-300 text-gray-800 rounded font-semibold">Limpiar filtros</button>
+                <div class="filtro-columna flex justify-end gap-5 col-span-2">
+                    <button type="button" id="reset-filtros"><?php _e('Limpiar filtros', 'camaravalencia'); ?></button>                    
+                    <button id="apply-filtros" type="submit"><?php _e('Aplicar filtros', 'camaravalencia'); ?></button>
                 </div>
             </form>
         </div>
     </section>
     <!-- Listado de actividades -->
-    <section class="listado-actividades py-12 md:py-36 elementor-section elementor-section-boxed">
+    <section class="listado-actividades pt-6 pb-12 md:pb-36 elementor-section elementor-section-boxed">
         <div id="listado_actividades" class="container elementor-container mx-auto px-4 flex flex-col">
             
             <?php if ($query->have_posts()) : ?>
@@ -441,21 +436,7 @@ $direccion = get_post_type_archive_link('jornadas');
 </main>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const selects = document.querySelectorAll('.filter_selector_select');
-    selects.forEach(function(select) {
-        select.addEventListener('change', function() {
-            // Construir la URL con todos los filtros
-            const params = new URLSearchParams(window.location.search);
-            selects.forEach(function(s) {
-                if (s.value) {
-                    params.set(s.name, s.value);
-                } else {
-                    params.delete(s.name);
-                }
-            });
-            window.location.search = params.toString();
-        });
-    });
+    
     document.getElementById('reset-filtros').addEventListener('click', function() {
         // Limpiar selects
         document.querySelectorAll('.filter_selector_select').forEach(function(select) {
