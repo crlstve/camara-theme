@@ -66,7 +66,7 @@ jQuery(document).ready(function ($) {
                                             <span class="inline-block px-3 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full mb-3">${event.type}</span>
                                             <h2 class="slider-calendar-title">${event.title}</h2>
                                             <div class="space-y-2 mb-6 text-sm">
-                                                ${event.hours ? `<p class="text-gray-600"><strong>${event.hours}</strong>${event.price ? ' | ' + event.price : ''}${event.location ? ' | ' + event.location : ''}</p>` : ''}
+                                                ${event.hours ? `<p class="text-gray-600">${event.date ? `<strong>${event.date}</strong> | ` : ''}<strong>${event.hours}</strong>${event.price ? ' | ' + event.price : ''}${event.location ? ' | ' + event.location : ''}</p>` : ''}
                                                 ${event.description ? `<p class="text-gray-600 text-sm">${event.description}</p>` : ''}
                                             </div>
                                             <a href="${event.url}" class="inline-flex items-center px-6 py-3 bg-[#e91e63] text-white rounded-full font-medium hover:bg-[#c2185b] transition-colors border">
@@ -196,20 +196,6 @@ jQuery(document).ready(function ($) {
     getMonthEvents(currentDate.getFullYear(), currentDate.getMonth());
     loadEventsByDate(selectedDate);
 
-    // Filtros existentes
-    $('select.filter_selector_select').on('change', function () {
-        var field_programa = $('#filter_programa').val();
-        var field_lugar = $('#filter_lugar').val();
-        var field_fecha = $('#filter_fecha').val();
-
-        var url = window.location.pathname + '?';
-        var params = [];
-
-        if (field_programa) params.push('filtro_programa=' + field_programa);
-        if (field_lugar) params.push('filtro_lugar=' + field_lugar);
-        if (field_fecha) params.push('filtro_fecha=' + field_fecha);
-
-        url += params.join('&');
-        window.location.href = url;
-    });
+    // Los filtros ahora se manejan únicamente mediante el formulario (submit)
+    // No se necesita el event listener 'change' aquí
 });
