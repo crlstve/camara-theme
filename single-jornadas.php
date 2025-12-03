@@ -236,7 +236,7 @@
 
             <div class="elementor-container gap-10">
 
-                <div class="w-full lg:w-5/12">
+                <div class="w-full lg:w-6/12">
 
                     <?php if($objetivo): ?>
 
@@ -277,7 +277,7 @@
                 </div>
 
 
-                <div class="w-full lg:w-5/12">
+                <div class="w-full lg:w-6/12">
 
                     <?php if($programa_con_horario && $programa_fila): ?>
 
@@ -365,9 +365,9 @@
         </section>
 
 
-        <section class="w-full bg-(--e-global-color-text) py-1 elementor-section elementor-section-boxed">
+        <section class="w-full py-1 elementor-section elementor-section-boxed">
 
-            <div class="elementor-container mx-auto text-center text-white flex flex-col md:flex-row gap-8 justify-around py-24">
+            <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24">
 
                 <?php 
                     // plugins/camara_jornadas/inc/funciones.php =>
