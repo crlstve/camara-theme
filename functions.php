@@ -168,16 +168,16 @@ function ajax_get_events_by_date() {
         return;
     }
     
-    // Query optimizada
+    // Query optimizada para obtener SOLO eventos del día específico
     $query = new WP_Query(array(
         'post_type' => array('cursos', 'ediciones', 'jornadas'),
-        'posts_per_page' => 5,
+        'posts_per_page' => -1, // Sin límite, traer todos los eventos del día
         'post_status' => 'publish',
         'meta_query' => array(
             'relation' => 'OR',
-            array('key' => 'cursos_fechainicio', 'value' => $date, 'compare' => '>=', 'type' => 'NUMERIC'),
-            array('key' => 'ediciones_fechainicio', 'value' => $date, 'compare' => '>=', 'type' => 'NUMERIC'),
-            array('key' => 'jornadas_fechainicio', 'value' => $date, 'compare' => '>=', 'type' => 'NUMERIC'),
+            array('key' => 'cursos_fechainicio', 'value' => $date, 'compare' => '=', 'type' => 'NUMERIC'),
+            array('key' => 'ediciones_fechainicio', 'value' => $date, 'compare' => '=', 'type' => 'NUMERIC'),
+            array('key' => 'jornadas_fechainicio', 'value' => $date, 'compare' => '=', 'type' => 'NUMERIC'),
         ),
         'orderby' => 'meta_value_num',
         'meta_key' => 'jornadas_fechainicio',
@@ -211,9 +211,13 @@ function ajax_get_events_by_date() {
             
             $id_lugar = get_post_meta($post_id, $post_type . "_lugar", true);
             $tlugar = get_term($id_lugar, "lugar");
-            
+            $date_value = get_post_meta($post_id, $post_type . '_fechainicio', true);
+            $fechadia = date("d", strtotime($date_value));
+            $fechames = date("M", strtotime($date_value));
+            $final_date = $fechadia . ' ' . $fechames;
             $events[] = array(
                 'title' => get_the_title($post_id),
+                'date' => $final_date,
                 'description' => wp_trim_words(wp_strip_all_tags(get_field('field_jornadas_objetivos', $post_id)), 15),
                 'image' => $image_url ? $image_url[0] : get_stylesheet_directory_uri() . '/images/default-event.jpg',
                 'url' => get_permalink($post_id),
@@ -222,8 +226,6 @@ function ajax_get_events_by_date() {
                 'price' => get_field('field_jornadas_preciodescrip', $post_id),
                 'location' => $tlugar ? $tlugar->name : ''
             );
-            
-            if (count($events) >= 5) break;
         }
     }
     
