@@ -10,7 +10,13 @@
         --cammara-accent-color: #C81E35;
         --megamenu-border-radius: 0.3rem;
         --camara-box-shadow: -1px 5px 8px 0px rgba(0, 0, 0, 0.1);
-        --mid-grey: #E7E9F2;
+        /*Grises*/
+            --light-grey: #F4F5FC;
+            --mid-light-grey: #EAECF5;
+            --mid-grey: #E7E9F2;
+            --mid-dark-grey: #CCCED5;
+            --dark-grey: #404248;
+            --dark: #1e1e1e;
     }
 
     :root {
@@ -215,24 +221,39 @@
             @apply max-w-32;
         }
 
+    /* ========================================
+       Archive Items Card Titles
+       ======================================== */
+
+        .agenda-item-content>header>h4 {
+            color: var(--text-color, #333);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0 0 1rem 0;
+        }
+    
+        .noticias-item>div>h4.noticias-title {
+            color: var(--text-color, #333);
+            font-weight: 400;
+            font-size: 0.9rem;
+            margin: 0 0 1rem 0;
+        }
+
 }
 
-div.filtro-columna > select.filter_selector_select {
-    @apply border-(--color-gray-300) rounded-lg px-4 py-2 w-full;
-}
-.filtro-columna > button#reset-filtros,
-.filtro-columna > button#apply-filtros {
-    @apply bg-transparent rounded-full px-6 py-2 border border-(--megamenu-text-color) text-(--megamenu-text-color) hover:bg-(--megamenu-text-color) hover:text-white font-semibold transition-colors text-xs;
-}
-.filter-button:hover {
-    @apply bg-(--megamenu-text-color) text-white!;
-}
-
-.sostenible-plus{
-    text-decoration: none;
-    color: white;
-    background: linear-gradient(95deg, rgba(61, 103, 104, 0.64) 0%, rgba(71, 184, 171, 0) 100%);
-    border-radius: 9999px;
-    padding: 0.2rem 0.5rem;
-    transition: all 0.3s ease;
-}
+        /* ========================================
+           Archive Filters
+           ======================================== */
+    
+        div.filtro-columna>select.filter_selector_select {
+            @apply border-(--color-gray-300) rounded-lg px-4 py-2 w-full;
+        }
+    
+        .filtro-columna>button#reset-filtros,
+        .filtro-columna>button#apply-filtros {
+            @apply bg-transparent rounded-full px-6 py-2 border border-(--megamenu-text-color) text-(--megamenu-text-color) hover:bg-(--megamenu-text-color) hover:text-white font-semibold transition-colors text-xs;
+        }
+    
+        .filter-button:hover {
+            @apply bg-(--megamenu-text-color) text-white!;
+        }
