@@ -366,18 +366,19 @@
 
 
         <section class="w-full py-1 elementor-section elementor-section-boxed">
+            
+           
+                <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24 border-y border-(--mid-grey)">
 
-            <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24">
+                    <?php 
+                        // plugins/camara_jornadas/inc/funciones.php =>
+                        $patrocinadores_html = patrocinadores_jornadas(null, true);
+                        if ($patrocinadores_html):
+                            echo $patrocinadores_html;
+                        endif;
+                    ?>
 
-                <?php 
-                    // plugins/camara_jornadas/inc/funciones.php =>
-                    $patrocinadores_html = patrocinadores_jornadas(null, true);
-                    if ($patrocinadores_html):
-                        echo $patrocinadores_html;
-                    endif;
-                ?>
-
-            </div>
+                </div>
 
         </section>
      
