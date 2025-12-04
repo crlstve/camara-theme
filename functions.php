@@ -27,8 +27,10 @@ function hello_elementor_child_enqueue_scripts() {
     if (is_singular('jornadas') || is_post_type_archive('jornadas') || is_tax('tipo_jornada')) {
         wp_enqueue_style( 'curso-custom-style', get_stylesheet_directory_uri() . '/css/style.css', array(), '1.0.0' );
     }
-	
-    if(is_post_type_archive('cursos') || is_post_type_archive('jornadas')) {
+    
+    $filtro_area = !empty($_GET['filter_area']) ? $_GET['filter_area'] : null;
+    if((is_post_type_archive('cursos') || is_post_type_archive('jornadas')) && !$filtro_area) {
+        
         wp_enqueue_script( 'calendar-slider', get_stylesheet_directory_uri() . '/js/calendar-slider.js', array(), '1.0.0' );
         wp_enqueue_script( 'splide', get_stylesheet_directory_uri() . '/js/splide.min.js', array(), '1.0.0' );
         wp_enqueue_style( 'splide-style', get_stylesheet_directory_uri() . '/css/splide.min.css', array(), '1.0.0' );
