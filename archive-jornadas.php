@@ -10,6 +10,8 @@ $filtro_programa = !empty($_GET['filtro_programa']) ? $_GET['filtro_programa'] :
 $filtro_lugar = !empty($_GET['filtro_lugar']) ? $_GET['filtro_lugar'] : null;
 $filtro_fecha = !empty($_GET['filtro_fecha']) ? $_GET['filtro_fecha'] : null;
 $filtro_tipojornada = !empty($_GET['filter_tipojornada']) ? $_GET['filter_tipojornada'] : null;
+$filtro_area = !empty($_GET['filter_area']) ? $_GET['filter_area'] : null;
+
 
 // Obtener IDs filtrados usando la función del plugin
 $ids_query = get_posts_ids($filtro_programa, $filtro_lugar, $filtro_fecha);
@@ -17,13 +19,20 @@ $ids_query = get_posts_ids($filtro_programa, $filtro_lugar, $filtro_fecha);
 // Paginación
 $pagina = get_query_var('paged') ? get_query_var('paged') : 1;
 
-// Preparar tax_query para tipojornada
+// Preparar tax_query para tipojornada y area
 $tax_query = array();
 if ($filtro_tipojornada) {
     $tax_query[] = array(
         'taxonomy' => 'tipojornada',
         'field'    => 'slug',
         'terms'    => $filtro_tipojornada,
+    );
+}
+if ($filtro_area) {
+    $tax_query[] = array(
+        'taxonomy' => 'area',
+        'field'    => 'slug',
+        'terms'    => $filtro_area,
     );
 }
 
@@ -45,78 +54,79 @@ $direccion = get_post_type_archive_link('jornadas');
 ?>
 
 <main class="archive-jornadas">
-    <!-- Sección cabecera con Hero Slider y Calendario -->
-    <section class="hero-slider-section bg-gray-50 pt-8 pb-12 elementor-section elementor-section-boxed">
-        <div class="container mx-auto px-4 elementor-container">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
-                
-                <!-- Columna Izquierda: Info del Evento Actual + Slider -->
-                <div class="lg:col-span-9">
+    <?php if(!$filtro_area): ?>
+        <!-- Sección cabecera con Hero Slider y Calendario -->
+        <section class="hero-slider-section bg-gray-50 pt-8 pb-12 elementor-section elementor-section-boxed">
+            <div class="container mx-auto px-4 elementor-container">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
                     
-                    <!-- Splide Slider -->
-                    <div class="splide hero-events-splide " id="hero-events-slider">
-                        <div class="splide__track">
-                            <ul class="splide__list max-h-104" id="hero-slider-wrapper">
-                                <!-- Los slides se cargarán dinámicamente via AJAX -->
-                                <li class="splide__slide flex items-center justify-center h-96">
-                                    <div class="text-center text-gray-400">
-                                        <p><?php _e('Cargando eventos...', 'camaravalencia'); ?></p>
-                                    </div>
-                                </li>
-                            </ul>
+                    <!-- Columna Izquierda: Info del Evento Actual + Slider -->
+                    <div class="lg:col-span-9">
+                        <!-- Splide Slider -->
+                        <div class="splide hero-events-splide " id="hero-events-slider">
+                            <div class="splide__track">
+                                <ul class="splide__list max-h-104" id="hero-slider-wrapper">
+                                    <!-- Los slides se cargarán dinámicamente via AJAX -->
+                                    <li class="splide__slide flex items-center justify-center h-96">
+                                        <div class="text-center text-gray-400">
+                                            <p><?php _e('Cargando eventos...', 'camaravalencia'); ?></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Paginación del Splide -->
+                            <ul class="splide__pagination mt-4"></ul>
                         </div>
                         
-                        <!-- Paginación del Splide -->
-                        <ul class="splide__pagination mt-4"></ul>
+                    </div>
+                    
+                    <!-- Columna Derecha: Calendario -->
+                    <div class="lg:col-span-4 absolute right-0 bottom-0 translate-y-3 min-w-4/12">
+                        <div class="bg-white rounded-2xl shadow-md p-6">
+                            <!-- Header del calendario con navegación -->
+                            <header id="calendar-header" class="flex items-center justify-between mb-3">
+                                <button id="calendar-prev" class="group">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-3 h-3">
+                                        <path class="group-hover:stroke-(--megamenu-bg-color)" stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                </button>
+                                
+                                <h3 id="calendar-month-year" class="calendar-month-title"></h3>
+                                
+                                <button id="calendar-next" class="group">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-3 h-3">
+                                        <path class="group-hover:stroke-(--megamenu-bg-color)" stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </button>
+                            </header>
+                            
+                            <!-- Días de la semana -->
+                            <div class="grid grid-cols-7 gap-2 mb-2">
+                                <div class="text-center text-xs font-medium text-gray-500">L</div>
+                                <div class="text-center text-xs font-medium text-gray-500">M</div>
+                                <div class="text-center text-xs font-medium text-gray-500">M</div>
+                                <div class="text-center text-xs font-medium text-gray-500">J</div>
+                                <div class="text-center text-xs font-medium text-gray-500">V</div>
+                                <div class="text-center text-xs font-medium text-gray-500">S</div>
+                                <div class="text-center text-xs font-medium text-gray-500">D</div>
+                            </div>
+                            
+                            <!-- Grid de días -->
+                            <div id="calendar-days" class="grid grid-cols-7 gap-1">
+                                <!-- Los días se generarán dinámicamente -->
+                            </div>
+                        </div>
                     </div>
                     
                 </div>
-                
-                <!-- Columna Derecha: Calendario -->
-                <div class="lg:col-span-4 absolute right-0 bottom-0 translate-y-3 min-w-4/12">
-                    <div class="bg-white rounded-2xl shadow-md p-6">
-                        <!-- Header del calendario con navegación -->
-                        <header id="calendar-header" class="flex items-center justify-between mb-3">
-                            <button id="calendar-prev" class="group">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-3 h-3">
-                                    <path class="group-hover:stroke-(--megamenu-bg-color)" stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                                </svg>
-                            </button>
-                            
-                            <h3 id="calendar-month-year" class="calendar-month-title"></h3>
-                            
-                            <button id="calendar-next" class="group">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-3 h-3">
-                                    <path class="group-hover:stroke-(--megamenu-bg-color)" stroke-linecap="round" stroke="#404248" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </button>
-                        </header>
-                        
-                        <!-- Días de la semana -->
-                        <div class="grid grid-cols-7 gap-2 mb-2">
-                            <div class="text-center text-xs font-medium text-gray-500">L</div>
-                            <div class="text-center text-xs font-medium text-gray-500">M</div>
-                            <div class="text-center text-xs font-medium text-gray-500">M</div>
-                            <div class="text-center text-xs font-medium text-gray-500">J</div>
-                            <div class="text-center text-xs font-medium text-gray-500">V</div>
-                            <div class="text-center text-xs font-medium text-gray-500">S</div>
-                            <div class="text-center text-xs font-medium text-gray-500">D</div>
-                        </div>
-                        
-                        <!-- Grid de días -->
-                        <div id="calendar-days" class="grid grid-cols-7 gap-1">
-                            <!-- Los días se generarán dinámicamente -->
-                        </div>
-                    </div>
-                </div>
-                
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif; ?>
     <!-- Sección de filtros -->
     <section class="filtros-actividades pt-20 pb-8 elementor-section elementor-section-boxed">
         <div class="mx-auto px-4 elementor-container">
-            <form method="get" id="filtros-actividades-form" class="filtros grid md:grid-cols-6 gap-4 justify-center">
+            <form method="get" id="filtros-actividades-form" class="filtros grid md:grid-cols-7 gap-4 justify-center">
                 <!-- Filtro: Tipo de Evento -->
                 <div class="filtro-columna">
                     <select id="filter_programa" name="filter_programa" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
@@ -194,6 +204,21 @@ $direccion = get_post_type_archive_link('jornadas');
                         ?>
                             <option value="<?= esc_attr($tipo->slug); ?>" <?= $selected; ?>>
                                 <?= esc_html($tipo->name); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <!-- Filtro: Área -->
+                <div class="filtro-columna">
+                    <select id="filter_area" name="filter_area" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
+                        <option value=""><?php _e('Área', 'camaravalencia'); ?></option>
+                        <?php
+                        $areas = get_terms(array('taxonomy' => 'area', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
+                        foreach ($areas as $area) :
+                            $selected = ($filtro_area == $area->slug) ? 'selected' : '';
+                        ?>
+                            <option value="<?= esc_attr($area->slug); ?>" <?= $selected; ?>>
+                                <?= esc_html($area->name); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -401,7 +426,9 @@ $direccion = get_post_type_archive_link('jornadas');
                                 'add_args'  => array(
                                     'filtro_programa' => $filtro_programa,
                                     'filtro_lugar'    => $filtro_lugar,
-                                    'filtro_fecha'    => $filtro_fecha
+                                    'filtro_fecha'    => $filtro_fecha,
+                                    'filter_tipojornada' => $filtro_tipojornada,
+                                    'filter_area'     => $filtro_area,
                                 ),
                             ));
                             
