@@ -51,6 +51,14 @@ $query = new WP_Query($query_args);
 
 // URL base para paginación
 $direccion = get_post_type_archive_link('jornadas');
+
+$terms = get_terms(array('taxonomy' => 'area'));
+    foreach ($terms as $term):
+        if (in_array($term->slug, (array) $filtro_area)) {
+            $title = $term->name;
+        }
+    endforeach;
+
 ?>
 
 <main class="archive-jornadas">
@@ -122,6 +130,15 @@ $direccion = get_post_type_archive_link('jornadas');
                 </div>
             </div>
         </section>
+
+    <?php else: ?>
+
+        <section class="hero-slider-section elementor-section elementor-section-boxed h-24 md:h-72 flex justify-center items-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<?= get_stylesheet_directory_uri(); ?>/images/jornadas.webp'); background-size: cover; background-repeat:no-repeat; background-position: center;">
+            <div class="container mx-auto elementor-container flex flex-col text-center">
+                <h1 style="color:white;"><?php _e('Jornadas en', 'camaravalencia'); ?> <span><?php esc_attr_e($title); ?></span></h1>
+            </div>
+        </section>
+
     <?php endif; ?>
     <!-- Sección de filtros -->
     <section class="filtros-actividades pt-20 pb-8 elementor-section elementor-section-boxed">
@@ -132,13 +149,13 @@ $direccion = get_post_type_archive_link('jornadas');
                     <select id="filter_programa" name="filter_programa" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
                         <option value=""><?php _e('Tipo de evento', 'camaravalencia'); ?></option>
                         <?php
-                        $programas = get_terms(array('taxonomy' => 'programa', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
-                        foreach ($programas as $programa) :
-                            $selected = ($filtro_programa == $programa->slug) ? 'selected' : '';
+                            $programas = get_terms(array('taxonomy' => 'programa', 'hide_empty' => true, 'orderby' => 'name', 'parent' => 0));
+                            foreach ($programas as $programa) :
+                                $selected = ($filtro_programa == $programa->slug) ? 'selected' : '';
                         ?>
-                            <option value="<?= esc_attr($programa->slug); ?>" <?= $selected; ?>>
-                                <?= esc_html($programa->name); ?>
-                            </option>
+                                <option value="<?= esc_attr($programa->slug); ?>" <?= $selected; ?>>
+                                    <?= esc_html($programa->name); ?>
+                                </option>
                         <?php endforeach; ?>
                         <option value="jornadas" <?= ($filtro_programa == 'jornadas') ? 'selected' : ''; ?>>
                             <?php _e('Jornadas y Seminarios', 'camaravalencia'); ?>
