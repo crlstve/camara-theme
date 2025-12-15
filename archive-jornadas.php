@@ -71,7 +71,7 @@ $terms = get_terms(array('taxonomy' => 'area'));
                     <!-- Columna Izquierda: Info del Evento Actual + Slider -->
                     <div class="lg:col-span-9">
                         <!-- Splide Slider -->
-                        <div class="splide hero-events-splide " id="hero-events-slider">
+                        <div class="splide hero-events-splide flex" id="hero-events-slider">
                             <div class="splide__track">
                                 <ul class="splide__list max-h-104" id="hero-slider-wrapper">
                                     <!-- Los slides se cargarán dinámicamente via AJAX -->
