@@ -1,14 +1,16 @@
 <?php 
+
+
 get_header(); 
 
 // Preparar variables PHP
 global $wpdb;
 
 
-// Obtener filtros de GET
-$filtro_programa = !empty($_GET['filtro_programa']) ? $_GET['filtro_programa'] : null;
-$filtro_lugar = !empty($_GET['filtro_lugar']) ? $_GET['filtro_lugar'] : null;
-$filtro_fecha = !empty($_GET['filtro_fecha']) ? $_GET['filtro_fecha'] : null;
+// Obtener filtros de GET (para mantener estado en URL)
+$filtro_programa = !empty($_GET['filter_programa']) ? $_GET['filter_programa'] : null;
+$filtro_lugar = !empty($_GET['filter_lugar']) ? $_GET['filter_lugar'] : null;
+$filtro_fecha = !empty($_GET['filter_fecha']) ? $_GET['filter_fecha'] : null;
 $filtro_tipojornada = !empty($_GET['filter_tipojornada']) ? $_GET['filter_tipojornada'] : null;
 $filtro_area = !empty($_GET['filter_area']) ? $_GET['filter_area'] : null;
 
@@ -143,7 +145,7 @@ $terms = get_terms(array('taxonomy' => 'area'));
     <!-- Sección de filtros -->
     <section class="filtros-actividades pt-20 pb-8 elementor-section elementor-section-boxed">
         <div class="mx-auto px-4 elementor-container">
-            <form method="get" id="filtros-actividades-form" class="filtros grid md:grid-cols-7 gap-4 justify-center">
+            <div id="filtros-actividades-form" class="filtros grid md:grid-cols-7 gap-4 justify-center">
                 <!-- Filtro: Tipo de Evento -->
                 <div class="filtro-columna">
                     <select id="filter_programa" name="filter_programa" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
@@ -241,10 +243,9 @@ $terms = get_terms(array('taxonomy' => 'area'));
                     </select>
                 </div>
                 <div class="filtro-columna flex justify-end gap-5 col-span-2">
-                    <button type="button" id="reset-filtros"><?php _e('Limpiar filtros', 'camaravalencia'); ?></button>                    
-                    <button id="apply-filtros" type="submit"><?php _e('Aplicar filtros', 'camaravalencia'); ?></button>
+                    <button type="button" id="reset-filtros" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"><?php _e('Limpiar filtros', 'camaravalencia'); ?></button>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
     <!-- Listado de actividades -->
@@ -479,16 +480,233 @@ $terms = get_terms(array('taxonomy' => 'area'));
     </section>
 </main>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+jQuery(document).ready(function($) {
+    let isLoading = false;
+    let isUpdatingFilters = false;
     
-    document.getElementById('reset-filtros').addEventListener('click', function() {
-        // Limpiar selects
-        document.querySelectorAll('.filter_selector_select').forEach(function(select) {
-            select.value = '';
+    // Función para actualizar opciones de filtros disponibles
+    function actualizarFiltrosDisponibles(cambioDesde = null) {
+        if (isUpdatingFilters) return;
+        isUpdatingFilters = true;
+        
+        var filtros = {
+            action: 'get_filtros_disponibles',
+            filtro_programa: $('#filter_programa').val(),
+            filtro_lugar: $('#filter_lugar').val(),
+            filtro_fecha: $('#filter_fecha').val(),
+            filtro_tipojornada: $('#filter_tipojornada').val(),
+            filtro_area: $('#filter_area').val()
+        };
+        
+        $.ajax({
+            url: MyAjax.url,
+            type: 'POST',
+            data: filtros,
+            success: function(response) {
+                if (response.success) {
+                    var data = response.data;
+                    
+                    // Actualizar selector de programas
+                    if (!filtros.filtro_programa && cambioDesde !== 'programa') {
+                        var programaActual = $('#filter_programa').val();
+                        var $programa = $('#filter_programa');
+                        var primerOption = $programa.find('option:first');
+                        
+                        $programa.empty().append(primerOption);
+                        
+                        $.each(data.programas, function(index, item) {
+                            $programa.append($('<option>', {
+                                value: item.slug,
+                                text: item.name
+                            }));
+                        });
+                        
+                        if (programaActual) {
+                            $programa.val(programaActual);
+                        }
+                    }
+                    
+                    // Actualizar selector de lugares
+                    if (!filtros.filtro_lugar && cambioDesde !== 'lugar') {
+                        var lugarActual = $('#filter_lugar').val();
+                        var $lugar = $('#filter_lugar');
+                        var primerOption = $lugar.find('option:first');
+                        
+                        $lugar.empty().append(primerOption);
+                        
+                        $.each(data.lugares, function(index, item) {
+                            $lugar.append($('<option>', {
+                                value: item.slug,
+                                text: item.name
+                            }));
+                        });
+                        
+                        if (lugarActual) {
+                            $lugar.val(lugarActual);
+                        }
+                    }
+                    
+                    // Actualizar selector de tipo de jornada
+                    if (!filtros.filtro_tipojornada && cambioDesde !== 'tipojornada') {
+                        var tipoActual = $('#filter_tipojornada').val();
+                        var $tipo = $('#filter_tipojornada');
+                        var primerOption = $tipo.find('option:first');
+                        
+                        $tipo.empty().append(primerOption);
+                        
+                        $.each(data.tipojornadas, function(index, item) {
+                            $tipo.append($('<option>', {
+                                value: item.slug,
+                                text: item.name
+                            }));
+                        });
+                        
+                        if (tipoActual) {
+                            $tipo.val(tipoActual);
+                        }
+                    }
+                    
+                    // Actualizar selector de área
+                    if (!filtros.filtro_area && cambioDesde !== 'area') {
+                        var areaActual = $('#filter_area').val();
+                        var $area = $('#filter_area');
+                        var primerOption = $area.find('option:first');
+                        
+                        $area.empty().append(primerOption);
+                        
+                        $.each(data.areas, function(index, item) {
+                            $area.append($('<option>', {
+                                value: item.slug,
+                                text: item.name
+                            }));
+                        });
+                        
+                        if (areaActual) {
+                            $area.val(areaActual);
+                        }
+                    }
+                }
+                isUpdatingFilters = false;
+            },
+            error: function() {
+                console.error('Error al actualizar filtros disponibles');
+                isUpdatingFilters = false;
+            }
         });
-        // Limpiar parámetros de la URL
-        window.location.href = window.location.pathname;
+    }
+    
+    // Función para cargar eventos con AJAX
+    function cargarEventos(pagina = 1, actualizarFiltros = true) {
+        if (isLoading) return;
+        isLoading = true;
+        
+        // Mostrar indicador de carga
+        $('#listado_actividades').css('opacity', '0.5');
+        
+        var filtros = {
+            action: 'filtrar_agenda',
+            filtro_programa: $('#filter_programa').val(),
+            filtro_lugar: $('#filter_lugar').val(),
+            filtro_fecha: $('#filter_fecha').val(),
+            filtro_tipojornada: $('#filter_tipojornada').val(),
+            filtro_area: $('#filter_area').val(),
+            paged: pagina
+        };
+        
+        // Actualizar URL sin recargar
+        var params = new URLSearchParams();
+        if (filtros.filtro_programa) params.set('filter_programa', filtros.filtro_programa);
+        if (filtros.filtro_lugar) params.set('filter_lugar', filtros.filtro_lugar);
+        if (filtros.filtro_fecha) params.set('filter_fecha', filtros.filtro_fecha);
+        if (filtros.filtro_tipojornada) params.set('filter_tipojornada', filtros.filtro_tipojornada);
+        if (filtros.filtro_area) params.set('filter_area', filtros.filtro_area);
+        if (pagina > 1) params.set('paged', pagina);
+        
+        var newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+        window.history.pushState({}, '', newUrl);
+        
+        $.ajax({
+            url: MyAjax.url,
+            type: 'POST',
+            data: filtros,
+            success: function(response) {
+                if (response.success) {
+                    $('#listado_actividades').html(response.data.html);
+                    $('#listado_actividades').css('opacity', '1');
+                    
+                    // Scroll suave al inicio del listado
+                    $('html, body').animate({
+                        scrollTop: $('#listado_actividades').offset().top - 100
+                    }, 500);
+                    
+                    // Actualizar filtros disponibles después de cargar eventos
+                    if (actualizarFiltros) {
+                        actualizarFiltrosDisponibles();
+                    }
+                }
+                isLoading = false;
+            },
+            error: function() {
+                console.error('Error al cargar eventos');
+                $('#listado_actividades').css('opacity', '1');
+                isLoading = false;
+            }
+        });
+    }
+    
+    // Evento change en selector de programa
+    $('#filter_programa').on('change', function() {
+        actualizarFiltrosDisponibles('programa');
+        cargarEventos(1, false);
     });
+    
+    // Evento change en selector de lugar
+    $('#filter_lugar').on('change', function() {
+        actualizarFiltrosDisponibles('lugar');
+        cargarEventos(1, false);
+    });
+    
+    // Evento change en selector de fecha (no actualiza otros filtros)
+    $('#filter_fecha').on('change', function() {
+        cargarEventos(1, true);
+    });
+    
+    // Evento change en selector de tipo de jornada
+    $('#filter_tipojornada').on('change', function() {
+        actualizarFiltrosDisponibles('tipojornada');
+        cargarEventos(1, false);
+    });
+    
+    // Evento change en selector de área
+    $('#filter_area').on('change', function() {
+        actualizarFiltrosDisponibles('area');
+        cargarEventos(1, false);
+    });
+    
+    // Botón limpiar filtros
+    $('#reset-filtros').on('click', function() {
+        // Limpiar todos los selectores
+        $('.filter_selector_select').val('');
+        
+        // Limpiar URL
+        window.history.pushState({}, '', window.location.pathname);
+        
+        // Actualizar filtros disponibles y cargar eventos
+        actualizarFiltrosDisponibles();
+        cargarEventos(1, false);
+    });
+    
+    // Delegación de eventos para paginación
+    $(document).on('click', '.pagination-link', function(e) {
+        e.preventDefault();
+        var pagina = $(this).data('page');
+        if (pagina) {
+            cargarEventos(pagina, false);
+        }
+    });
+    
+    // Cargar filtros disponibles al iniciar
+    actualizarFiltrosDisponibles();
 });
 </script>
 
