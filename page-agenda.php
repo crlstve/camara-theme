@@ -442,16 +442,17 @@ $terms = get_terms(array('taxonomy' => 'area'));
                     <div class="flex items-center gap-2">
                         <?php
                             $pagination = paginate_links(array(
-                                'base'      => $direccion . '%_%',
-                                'current'   => $pagina,
+                                'base'      => trailingslashit(get_post_type_archive_link('jornadas')) . 'page/%#%/',
+                                'format'    => '?paged=%#%',
+                                'current'   => max(1, $pagina),
                                 'total'     => $query->max_num_pages,
                                 'prev_text' => '‹',
                                 'next_text' => '›',
                                 'type'      => 'array',
                                 'add_args'  => array(
-                                    'filtro_programa' => $filtro_programa,
-                                    'filtro_lugar'    => $filtro_lugar,
-                                    'filtro_fecha'    => $filtro_fecha,
+                                    'filter_programa' => $filtro_programa,
+                                    'filter_lugar'    => $filtro_lugar,
+                                    'filter_fecha'    => $filtro_fecha,
                                     'filter_tipojornada' => $filtro_tipojornada,
                                     'filter_area'     => $filtro_area,
                                 ),
@@ -459,12 +460,9 @@ $terms = get_terms(array('taxonomy' => 'area'));
                             
                             if ($pagination) {
                                 foreach ($pagination as $page) {
-                                    // Detectar si es el enlace actual
                                     if (strpos($page, 'current') !== false) {
                                         echo '<span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1a1a1a] text-white text-sm font-medium">' . strip_tags($page) . '</span>';
                                     } else {
-                                        // Limpiar el HTML para extraer solo el contenido
-                                        $clean_page = preg_replace('/<a[^>]*>(.*?)<\/a>/i', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" href="$2">$1</a>', $page);
                                         echo str_replace('<a ', '<a class="w-10 h-10 flex items-center justify-center rounded-full border border-[#d0d0d0] text-[#666] text-sm font-medium hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors" ', $page);
                                     }
                                 }

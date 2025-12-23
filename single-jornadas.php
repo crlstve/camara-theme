@@ -8,6 +8,8 @@
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
     get_header();
+
+
             // Campos básicos
                 $subtitulo = get_field('jornadas_subtitulo');
                 $objetivo = get_field('jornadas_objetivos');
@@ -371,6 +373,7 @@
                 <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24 border-y border-(--mid-grey)">
 
                     <?php 
+                    
                         // plugins/camara_jornadas/inc/funciones.php =>
                         $patrocinadores_html = patrocinadores_jornadas(null, true);
                         if ($patrocinadores_html):
