@@ -211,7 +211,7 @@ $terms = get_terms(array('taxonomy' => 'area'));
                         <option value="5" <?= ($filtro_fecha == 5) ? 'selected' : ''; ?>><?php _e('Mes que viene', 'camaravalencia'); ?></option>
                     </select>
                 </div>
-                <!-- Filtro: Tipo de Jornada -->
+                <!-- Filtro: Tipo de Jornada 
                 <div class="filtro-columna">
                     <select id="filter_tipojornada" name="filter_tipojornada" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
                         <option value=""><?php _e('Tipo de jornada', 'camaravalencia'); ?></option>
@@ -226,7 +226,7 @@ $terms = get_terms(array('taxonomy' => 'area'));
                             </option>
                         <?php endforeach; ?>
                     </select>
-                </div>
+                </div>-->
                 <!-- Filtro: Área -->
                 <div class="filtro-columna">
                     <select id="filter_area" name="filter_area" class="filter_selector_select w-full px-4 py-2 border rounded-lg">
