@@ -100,6 +100,7 @@
                     <?php endif; ?>
 
                     <h1 style="color:<?= $color ?>;" class="pb-12 mt-0"><?php the_title(); ?></h1>
+                    <span><?php esc_html_e($subtitulo)?></span>
 
                     <div class="my-6">
 
