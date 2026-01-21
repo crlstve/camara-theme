@@ -59,9 +59,17 @@
             @apply pb-6;
         }
 
-        article.camara-article ul > li > ul {
-            @apply ml-6;
+        article.camara-article ul li,
+        section.camara-program > ul > li > div > ul li{
+            @apply ml-4 relative;
         }
+       article.camara-article ul li:before,
+       section.camara-program > ul > li > div > ul li:before {
+            content: "•";
+            @apply font-bold absolute -left-3;
+       }
+        
+
 
     /* ========================================
        CONTACT SECTION
