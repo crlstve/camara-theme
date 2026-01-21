@@ -91,7 +91,7 @@
 
             <div class="elementor-container mx-auto flex flex-col-reverse lg:flex-row justify-center gap-2 lg:gap-6 lg:min-h-96">
 
-                <div class="w-full md:w-1/2 px-6 pt-12 pb-24 single-hero-content">
+                <div class="w-full md:w-1/2 px-6 pt-16 pb-24 single-hero-content">
 
                     <?php if($tipo_jornada): ?>
                         
@@ -284,7 +284,7 @@
 
                     <?php if($programa_con_horario && $programa_fila): ?>
 
-                        <section class="camara-section">
+                        <section class="camara-section camara-program">
 
                             <h2 class="camara-title"><?php _e('Programa', 'camaravalencia'); ?></h2>                            
 
