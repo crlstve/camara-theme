@@ -22,22 +22,22 @@ function hello_elementor_child_enqueue_scripts() {
         
 	);	
 	
-	wp_enqueue_style( 'mytheme-responsive-style', get_stylesheet_directory_uri() . '/css/style_responsive.css', '1.0.0' );
+	wp_enqueue_style( 'mytheme-responsive-style', get_stylesheet_directory_uri() . '/assets/css/style_responsive.css', '1.0.0' );
 
-        wp_enqueue_style( 'curso-custom-style', get_stylesheet_directory_uri() . '/css/style.css', array(), '1.0.0' );
+        wp_enqueue_style( 'curso-custom-style', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), '1.0.0' );
 
     
     $filtro_area = !empty($_GET['filter_area']) ? $_GET['filter_area'] : null;
     if((is_post_type_archive('cursos') || is_post_type_archive('jornadas') || is_page_template('page-agenda.php')) && !$filtro_area) {
         
-        wp_enqueue_script( 'calendar-slider', get_stylesheet_directory_uri() . '/js/calendar-slider.js', array(), '1.0.0' );
-        wp_enqueue_script( 'splide', get_stylesheet_directory_uri() . '/js/splide.min.js', array(), '1.0.0' );
-        wp_enqueue_style( 'splide-style', get_stylesheet_directory_uri() . '/css/splide.min.css', array(), '1.0.0' );
+        wp_enqueue_script( 'calendar-slider', get_stylesheet_directory_uri() . '/assets/js/calendar-slider.js', array(), '1.0.0' );
+        wp_enqueue_script( 'splide', get_stylesheet_directory_uri() . '/assets/js/splide.min.js', array(), '1.0.0' );
+        wp_enqueue_style( 'splide-style', get_stylesheet_directory_uri() . '/assets/css/splide.min.css', array(), '1.0.0' );
 
     }
 
 
-	wp_enqueue_script( 'mi-script-ajax',get_bloginfo('stylesheet_directory') . '/js/ajax.js', array( 'jquery' ),uniqid() );	
+	wp_enqueue_script( 'mi-script-ajax',get_bloginfo('stylesheet_directory') . '/assets/js/ajax.js', array( 'jquery' ),uniqid() );	
 	wp_localize_script( 'mi-script-ajax', 'MyAjax', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 	
 }
@@ -781,4 +781,90 @@ function get_filtros_disponibles_ajax() {
     
     wp_send_json_success($response);
 }
+
+/**
+ * Registrar widgets personalizados de Elementor
+ */
+function register_camara_elementor_widgets( $widgets_manager ) {
+    
+    // Lista de widgets a registrar
+    $widgets = array(
+        'agenda_formacion' => array(
+            'class' => 'Camara_Agenda_Formacion_Widget',
+            'file'  => 'widget-agenda_formacion.php'
+        ),
+        'agenda_noticias' => array(
+            'class' => 'Camara_Agenda_Noticias_Widget',
+            'file'  => 'widget-agenda_noticias.php'
+        ),
+        'archive' => array(
+            'class' => 'Camara_Archive_Widget',
+            'file'  => 'widget-archive.php'
+        ),
+        'areas' => array(
+            'class' => 'Camara_Areas_Widget',
+            'file'  => 'widget-areas.php'
+        ),
+        'megamenu' => array(
+            'class' => 'Camara_Megamenu_Widget',
+            'file'  => 'widget-megamenu.php'
+        ),
+        'revistas' => array(
+            'class' => 'Camara_Revistas_Widget',
+            'file'  => 'widget-revistas.php'
+        ),
+        'slider_home' => array(
+            'class' => 'Camara_Slider_Home_Widget',
+            'file'  => 'widget-slider_home.php'
+        ),
+        'video_hero' => array(
+            'class' => 'Camara_Video_Hero_Widget',
+            'file'  => 'widget-video_hero.php'
+        ),
+    );
+    
+    // Registrar cada widget
+    foreach ( $widgets as $widget_dir => $widget_data ) {
+        $widget_file = get_stylesheet_directory() . '/widgets/' . $widget_dir . '/' . $widget_data['file'];
+        
+        if ( file_exists( $widget_file ) ) {
+            require_once( $widget_file );
+            
+            if ( class_exists( $widget_data['class'] ) ) {
+                $widgets_manager->register( new $widget_data['class']() );
+            }
+        }
+    }
+}
+add_action( 'elementor/widgets/register', 'register_camara_elementor_widgets' );
+
+/**
+ * Cargar archivos de funciones auxiliares de los widgets
+ */
+function load_camara_widget_functions() {
+    $widget_functions = array(
+        'widgets/agenda_formacion/functions-agenda_formacion.php',
+        'widgets/agenda_noticias/functions-agenda_noticias.php',
+        'widgets/archive/functions-archive.php',
+        'widgets/areas/functions-areas.php',
+        'widgets/megamenu/functions-megamenu.php',
+        'widgets/megamenu/custom-nav-fields.php',
+        'widgets/megamenu/acf-megamenu.php',
+        'widgets/revistas/functions-revistas.php',
+        'widgets/revistas/cpt-revistas.php',
+        'widgets/revistas/acf-revistas.php',
+        'widgets/slider_home/functions-slider_home.php',
+        'widgets/slider_home/cpt-slider_home.php',
+        'widgets/slider_home/acf-slider_home.php',
+        'widgets/video_hero/functions-video_hero.php',
+    );
+    
+    foreach ( $widget_functions as $file ) {
+        $file_path = get_stylesheet_directory() . '/' . $file;
+        if ( file_exists( $file_path ) ) {
+            require_once( $file_path );
+        }
+    }
+}
+add_action( 'after_setup_theme', 'load_camara_widget_functions' );
 

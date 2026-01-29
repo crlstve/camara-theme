@@ -1,0 +1,119 @@
+/**
+ * Video Hero Scroll Effect - Cámara Valencia
+ * Efecto de máscara de video con scroll
+ */
+
+.title-media-widget {
+    position: relative;
+    min-height: 200vh; /* Espacio para hacer scroll */
+}
+
+/* Cuando el efecto está activo, ajustar altura */
+.title-media-widget.has-scroll-effect {
+    min-height: 200vh;
+}
+
+/* Cuando no está activo, altura normal */
+.title-media-widget:not(.has-scroll-effect) {
+    min-height: auto;
+}
+
+.title-media-scroll-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-media-video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: opacity 0.2s ease-out; /* Transición más rápida */
+    opacity: 1;
+}
+
+.title-media-video-background.fading {
+    opacity: 0;
+}
+
+.title-media-heading {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0 0 40px 0; /* Espacio para la línea */
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    transform-origin: center;
+    
+    /* Efecto de máscara con el video */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: cover;
+    background-position: center;
+    
+    /* Transición suave - no incluir font-size ni font-weight para respetar Elementor */
+    transition: opacity 0.1s ease-out;
+    
+    /* Necesario para posicionar la línea */
+    display: inline-block;
+}
+
+/* Cuando el video-mask está inactivo, mostrar el color normal */
+.title-media-heading.color-active {
+    -webkit-text-fill-color: initial !important;
+    background-image: none !important;
+}
+
+/* Línea decorativa */
+.title-media-line {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 3px;
+    width: 0%;
+    background-color: #000;
+    opacity: 0;
+    transform-origin: left center;
+    transition: none; /* La animación se controla via JavaScript */
+    will-change: width, opacity;
+    z-index: 3; /* Por encima del texto */
+}
+
+.title-media-heading.has-video-mask {
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/* Fallback para navegadores que no soportan background-clip en video */
+@supports not (-webkit-background-clip: text) {
+    .title-media-heading {
+        -webkit-text-fill-color: initial;
+        color: #000;
+    }
+}
+
+/* Ocultar el contenedor de media original cuando está en modo máscara */
+.title-media-widget.scroll-effect-active .title-media-content {
+    display: none;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+    .title-media-heading {
+        white-space: normal;
+        word-wrap: break-word;
+    }
+}
