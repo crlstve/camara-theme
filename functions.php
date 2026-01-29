@@ -24,9 +24,8 @@ function hello_elementor_child_enqueue_scripts() {
 	
 	wp_enqueue_style( 'mytheme-responsive-style', get_stylesheet_directory_uri() . '/css/style_responsive.css', '1.0.0' );
 
-    if (is_singular('jornadas') || is_post_type_archive('jornadas') || is_tax('tipo_jornada') || is_page_template('page-agenda.php')) {
         wp_enqueue_style( 'curso-custom-style', get_stylesheet_directory_uri() . '/css/style.css', array(), '1.0.0' );
-    }
+
     
     $filtro_area = !empty($_GET['filter_area']) ? $_GET['filter_area'] : null;
     if((is_post_type_archive('cursos') || is_post_type_archive('jornadas') || is_page_template('page-agenda.php')) && !$filtro_area) {
