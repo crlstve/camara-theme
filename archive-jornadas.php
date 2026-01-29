@@ -21,6 +21,7 @@ $ids_query = get_posts_ids($filtro_programa, $filtro_lugar, $filtro_fecha);
 // Paginación
 $pagina = get_query_var('paged') ? get_query_var('paged') : 1;
 
+
 // Preparar tax_query para tipojornada y area
 $tax_query = array();
 if ($filtro_tipojornada) {
@@ -44,7 +45,13 @@ $query_args = array(
     'posts_per_page'  => 6,
     'paged'           => $pagina,
     'post__in'        => $ids_query,
-    'orderby'         => 'post__in',
+    'orderby' => 'meta_value',
+            'order' => 'ASC',
+    'meta_query' => array(
+     array(
+         'key' => 'jornadas_fechainicio',
+         'compare' => 'EXISTS'
+     )),
 );
 if (!empty($tax_query)) {
     $query_args['tax_query'] = $tax_query;
