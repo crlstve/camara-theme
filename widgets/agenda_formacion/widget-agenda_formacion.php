@@ -242,8 +242,22 @@ class Camara_Agenda_Formacion_Widget extends \Elementor\Widget_Base {
             'meta_query' => array(
                 'relation' => 'AND',
                 array(
-                    'key' => 'jornadas_agendaformacion',
-                    'compare' => 'EXISTS'
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'jornadas_agendaformacion',
+                        'value' => 'on',
+                        'compare' => 'LIKE'
+                    ),
+                    array(
+                        'key' => 'jornadas_agendaformacion',
+                        'value' => '1',
+                        'compare' => '='
+                    ),
+                    array(
+                        'key' => 'jornadas_agendaformacion',
+                        'value' => serialize(array('on')),
+                        'compare' => '='
+                    )
                 ),
                 array(
                     'key' => 'jornadas_fechainicio',
