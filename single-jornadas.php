@@ -77,6 +77,24 @@
                     // Si el evento es exclusivo para el club, redirige a la página externa
                     $id_jornada_crm_club = es_jornada_club(get_the_ID());
 
+                    $ivace = false;
+                    $ivace_logo = '';
+                    if ( is_array( $patrocinadores ) && !empty( $patrocinadores ) ) {
+                        $ids_patrocinadores = array_column( $patrocinadores, 'jornadas_patrocinadores_patrocinador' );
+                        $ivace = in_array( 662, $ids_patrocinadores );
+                        
+                        if ( $ivace ) {
+                            // Recuperar el logo de la taxonomía
+                            $ivace_logo = get_field('tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662');
+                            
+                            // Si necesitas la URL de la imagen
+                            if ( $ivace_logo ) {
+                                $ivace_logo_url = is_array( $ivace_logo ) ? $ivace_logo['url'] : wp_get_attachment_url( $ivace_logo );
+                            }
+                        }
+                    }
+
+
 ?>
 <style>
     :root{
@@ -169,15 +187,15 @@
 
                 </div>
 
-                <div class="w-full md:w-1/2">
-
-                        <img src="<?= esc_url( $imagen_banner ); ?>" alt="<?= esc_attr( the_title() ); ?>" class="object-cover" style="height: 100%;"/>
-
+                <div class="w-full md:w-1/2 relative">
+                    <img src="<?= esc_url( $imagen_banner ); ?>" alt="<?= esc_attr( the_title() ); ?>"class="object-cover" style="height: 100%;"/>
+                       <?php if ($ivace) : ?>
+                           <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full items-start justify-right absolute right-6 top-12 w-5/12">
+                               <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+                           </figure>
+                       <?php endif; ?>
                 </div>
-
             </div>
-
-
 
         </header>
 

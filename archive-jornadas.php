@@ -281,6 +281,28 @@ $terms = get_terms(array('taxonomy' => 'area'));
                         $url = get_the_permalink();
                         $url_externa = "";
                         
+                        // Patrocinadores
+                        $patrocinadores = get_field('jornadas_patrocinadores', $post_id );
+                        $ivace = false;
+                        $ivace_logo = '';
+                        if ( is_array( $patrocinadores ) && !empty( $patrocinadores ) ) {
+                            $ids_patrocinadores = array_column( $patrocinadores, 'jornadas_patrocinadores_patrocinador' );
+                            $ivace = in_array( 662, $ids_patrocinadores );
+                            
+                            if ( $ivace ) {
+                                // Recuperar el logo de la taxonomía
+                                $ivace_logo = get_field('tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662');
+                                
+                                // Si necesitas la URL de la imagen
+                                if ( $ivace_logo ) {
+                                    $ivace_logo_url = is_array( $ivace_logo ) ? $ivace_logo['url'] : wp_get_attachment_url( $ivace_logo );
+                                }
+                            }
+                        }
+
+
+
+
                         // Contenido / descripción
                         $content = wp_strip_all_tags(get_field('field_jornadas_objetivos', $post_id));
                         $hora = get_field('field_jornadas_horainicio', $post_id);
@@ -399,11 +421,18 @@ $terms = get_terms(array('taxonomy' => 'area'));
                     <li class="rounded-lg shadow-md bg-white border border-[#e0e0e0] overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
                         <a class="agenda-item flex flex-col h-full" href="<?= esc_url($final_url); ?>">
                             <figure class="w-full h-48 bg-cover bg-center flex items-end p-4" style="background-image: url('<?= esc_url($img); ?>');">
-                                <?php if ($logo) : ?>
-                                    <div class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full h-fit w-fit">
-                                        <?= $logo; ?>
-                                    </div>
+
+                                <?php if ($ivace) : ?>
+                                    <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full h-fit w-fit items-start justify-left">
+                                        <img class="brightness-0 invert" src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+                                    </figure>
                                 <?php endif; ?>
+                                <?php if ( $logo ) : ?>
+                                    <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full mb-0 h-fit w-fit items-end justify-center">
+                                        <?= $logo ?>
+                                    </figure>
+                                <?php endif; ?>
+
                             </figure>
                             <div class="agenda-item-content w-full px-5 py-3 flex flex-col justify-between grow">
                                 <header>

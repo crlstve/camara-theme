@@ -438,6 +438,24 @@ class Camara_Agenda_Noticias_Widget extends \Elementor\Widget_Base {
                                         $mostrar_exclusivo_logo = '';
                                         $title = get_the_title();
                                         $tipo_jornada = get_field('field_jornadas_tipojornada', $post_id );
+                                        // Patrocinadores
+                                        $patrocinadores = get_field('jornadas_patrocinadores', $post_id );
+                                        $ivace = false;
+                                        $ivace_logo = '';
+                                        if ( is_array( $patrocinadores ) && !empty( $patrocinadores ) ) {
+                                            $ids_patrocinadores = array_column( $patrocinadores, 'jornadas_patrocinadores_patrocinador' );
+                                            $ivace = in_array( 662, $ids_patrocinadores );
+                                            
+                                            if ( $ivace ) {
+                                                // Recuperar el logo de la taxonomía
+                                                $ivace_logo = get_field('tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662');
+                                                
+                                                // Si necesitas la URL de la imagen
+                                                if ( $ivace_logo ) {
+                                                    $ivace_logo_url = is_array( $ivace_logo ) ? $ivace_logo['url'] : wp_get_attachment_url( $ivace_logo );
+                                                }
+                                            }
+                                        }
 
                                             $get_term = get_term( $tipo_jornada );
                                         //contenido
@@ -560,6 +578,15 @@ class Camara_Agenda_Noticias_Widget extends \Elementor\Widget_Base {
                                     <li class="splide__slide gap-4 rounded-md shadow-sm bg-white border border-[#e0e0e0]">
                                         <a class="agenda-item grid md:grid-cols-6 p-0 rounded-md h-full" href="<?= esc_url( $final_url ); ?>" <?php if(!empty($url_externa)){ echo 'target="_blank" rel="nofollow noopener noreferrer"'; } ?>>
                                             <span class="col-span-1 md:col-span-2 h-full rounded-t-md md:rounded-t-none md:rounded-l-md p-3 m-0 min-h-40 bg-cover bg-center flex justify-center items-end" style="background-image: url('<?= $img ?>');">
+                                                <?php if ($ivace) : ?>
+                                                    <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full h-fit w-fit items-start justify-left">
+                                                        <?php if ( is_array( $ivace_logo ) ) : ?>
+                                                            <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+                                                        <?php else : ?>
+                                                            <img src="<?= esc_url( wp_get_attachment_url( $ivace_logo ) ); ?>" alt="IVACE Logo" />
+                                                        <?php endif; ?>
+                                                    </figure>
+                                                <?php endif; ?>
                                                 <?php if ( $logo ) : ?>
                                                     <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full h-fit w-fit items-end justify-center">
                                                         <?= $logo ?>
@@ -580,6 +607,7 @@ class Camara_Agenda_Noticias_Widget extends \Elementor\Widget_Base {
                                                     <?php if ( $max_text ): ?>
                                                         <?= esc_html( $max_text ); ?>
                                                     <?php endif; ?>
+                                                    
                                                 </p>
                                                 <footer class="evento-meta flex justify-between items-center mt-2 pt-3 border-t border-[#e0e0e0]">
                                                     <time class="evento-fecha"><?= esc_html( $evento_fecha ); ?></time>
