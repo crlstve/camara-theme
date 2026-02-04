@@ -9,7 +9,6 @@
 
     get_header();
 
-
             // Campos básicos
                 $subtitulo = get_field('jornadas_subtitulo');
                 $objetivo = get_field('jornadas_objetivos');
@@ -190,7 +189,7 @@
                 <div class="w-full md:w-1/2 relative">
                     <img src="<?= esc_url( $imagen_banner ); ?>" alt="<?= esc_attr( the_title() ); ?>"class="object-cover" style="height: 100%;"/>
                        <?php if ($ivace) : ?>
-                           <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full items-start justify-right absolute right-6 top-12 w-5/12">
+                           <figure class="agenda-figure bg-[rgba(255,255,255,0.44)] backdrop-blur-xs px-5 py-2 rounded-full items-start justify-right absolute right-6 top-12 w-5/12">
                                <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
                            </figure>
                        <?php endif; ?>
