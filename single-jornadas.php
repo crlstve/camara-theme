@@ -384,25 +384,26 @@
 
         </section>
 
+        <?php if ( $patrocinadores): ?>
 
-        <section class="w-full py-1 elementor-section elementor-section-boxed">
-            
-           
-                <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24 border-y border-(--mid-grey)">
+            <section class="w-full py-1 elementor-section elementor-section-boxed">
+                
+                    <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24 border-y border-(--mid-grey)">
 
-                    <?php 
-                    
-                        // plugins/camara_jornadas/inc/funciones.php =>
-                        $patrocinadores_html = patrocinadores_jornadas(null, true);
-                        if ($patrocinadores_html):
-                            echo $patrocinadores_html;
-                        endif;
-                    ?>
+                        <?php 
+                        
+                            // plugins/camara_jornadas/inc/funciones.php =>
+                            $patrocinadores_html = patrocinadores_jornadas(null, true);
+                            if ($patrocinadores_html):
+                                echo $patrocinadores_html;
+                            endif;
+                        ?>
 
-                </div>
+                    </div>
 
-        </section>
-     
+            </section>
+
+        <?php endif; ?> 
         <?php 
             // plugin camara_formularios/inc/shortcodes.php
              echo formulario_contacto_refactor() 
