@@ -51,7 +51,26 @@ $query_args = array(
      array(
          'key' => 'jornadas_fechainicio',
          'compare' => 'EXISTS'
-     )),
+     ),
+                                     'relation' => 'AND',
+                                array(
+                                    'relation' => 'OR',
+                                    array(
+                                        'key' => 'jornadas_exclusivoclub',
+                                        'compare' => 'NOT EXISTS' // Si el campo no existe
+                                    ),
+                                    array(
+                                        'key' => 'jornadas_exclusivoclub',
+                                        'value' => '',
+                                        'compare' => '=' // Si el campo está vacío
+                                    )
+                                ),
+                                array(
+                                    'key' => 'jornadas_exclusivoclub',
+                                    'value' => 'on',
+                                    'compare' => '!=' // Excluir los posts con el valor 'on'
+                                )
+     ),
 );
 if (!empty($tax_query)) {
     $query_args['tax_query'] = $tax_query;
@@ -188,24 +207,6 @@ $terms = get_terms(array('taxonomy' => 'area'));
                                 'meta_query' => array(
                                     'relation' => 'OR',
                                     array('key' => 'jornadas_fechainicio', 'value' => $fecha_actual, 'compare' => '>='),
-                                'relation' => 'AND',
-                                array(
-                                    'relation' => 'OR',
-                                    array(
-                                        'key' => 'jornadas_exclusivoclub',
-                                        'compare' => 'NOT EXISTS' // Si el campo no existe
-                                    ),
-                                    array(
-                                        'key' => 'jornadas_exclusivoclub',
-                                        'value' => '',
-                                        'compare' => '=' // Si el campo está vacío
-                                    )
-                                ),
-                                array(
-                                    'key' => 'jornadas_exclusivoclub',
-                                    'value' => 'on',
-                                    'compare' => '!=' // Excluir los posts con el valor 'on'
-                                )
                                     //array('key' => 'ediciones_fechainicio', 'value' => $fecha_actual, 'compare' => '>=')
                                 ),
                                 'tax_query' => array(array('taxonomy' => 'lugar', 'field' => 'term_id', 'terms' => $lugar->term_id)),
