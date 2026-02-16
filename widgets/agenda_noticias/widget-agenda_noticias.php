@@ -577,11 +577,11 @@ class Camara_Agenda_Noticias_Widget extends \Elementor\Widget_Base {
                                 ?>
                                     <li class="splide__slide gap-4 rounded-md shadow-sm bg-white border border-[#e0e0e0]">
                                         <a class="agenda-item grid md:grid-cols-6 p-0 rounded-md h-full" href="<?= esc_url( $final_url ); ?>" <?php if(!empty($url_externa)){ echo 'target="_blank" rel="nofollow noopener noreferrer"'; } ?>>
-                                            <span class="col-span-1 md:col-span-2 h-full rounded-t-md md:rounded-t-none md:rounded-l-md p-3 m-0 min-h-40 bg-cover bg-center flex justify-center items-end" style="background-image: url('<?= $img ?>');">
+                                            <span class="col-span-1 md:col-span-2 h-full rounded-t-md md:rounded-t-none md:rounded-l-md p-3 m-0 min-h-40 bg-cover bg-center flex gap-2 flex-col justify-end items-start" style="background-image: url('<?= $img ?>');">
                                                 <?php if ($ivace) : ?>
                                                     <figure class="agenda-figure bg-[rgba(0,0,0,0.2)] backdrop-blur-xs px-5 py-2 rounded-full h-fit w-fit items-start justify-left">
                                                         <?php if ( is_array( $ivace_logo ) ) : ?>
-                                                            <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+                                                            <img class="brightness-0 invert" src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
                                                         <?php else : ?>
                                                             <img src="<?= esc_url( wp_get_attachment_url( $ivace_logo ) ); ?>" alt="IVACE Logo" />
                                                         <?php endif; ?>
