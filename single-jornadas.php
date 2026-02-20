@@ -117,7 +117,22 @@
                     <?php endif; ?>
 
                     <h1 style="color:<?= $color ?>;" class="pb-12 mt-0"><?php the_title(); ?></h1>
-                    <span><?php esc_html_e($subtitulo)?></span>
+
+                        <?php if($subtitulo): ?>
+
+                            <span><?php esc_html_e($subtitulo)?></span>
+
+                        <?php endif; ?>
+
+                        <?php if ($ivace) : ?>
+
+                           <figure class="agenda-figure right-6 top-12 w-1/2">
+
+                               <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+
+                           </figure>
+
+                       <?php endif; ?>
 
                     <div class="my-6">
 
@@ -188,11 +203,6 @@
 
                 <div class="w-full md:w-1/2 relative">
                     <img src="<?= esc_url( $imagen_banner ); ?>" alt="<?= esc_attr( the_title() ); ?>"class="object-cover" style="height: 100%;"/>
-                       <?php if ($ivace) : ?>
-                           <figure class="agenda-figure bg-[rgba(255,255,255,0.44)] backdrop-blur-xs px-5 py-2 rounded-full items-start justify-right absolute right-6 top-12 w-5/12">
-                               <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
-                           </figure>
-                       <?php endif; ?>
                 </div>
             </div>
 
@@ -388,7 +398,7 @@
 
             <section class="w-full py-1 elementor-section elementor-section-boxed">
                 
-                    <div class="elementor-container mx-auto text-center flex flex-col md:flex-row gap-8 justify-around py-24 border-y border-(--mid-grey)">
+                    <div class="mx-auto text-center gap-8 justify-around py-24 border-y border-(--mid-grey)" style="max-width: 1200px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); display: grid;">
 
                         <?php 
                         
