@@ -92,7 +92,22 @@
                             }
                         }
                     }
-
+                    $feder = false;
+                    $feder_logo = '';
+                    if ( is_array( $patrocinadores ) && !empty( $patrocinadores ) ) {
+                        $ids_patrocinadores = array_column( $patrocinadores, 'jornadas_patrocinadores_patrocinador' );
+                        $feder = in_array( 980, $ids_patrocinadores );
+                        
+                        if ( $feder ) {
+                            // Recuperar el logo de la taxonomía
+                            $feder_logo = get_field('tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980');
+                            
+                            // Si necesitas la URL de la imagen
+                            if ( $feder_logo ) {
+                                $feder_logo_url = is_array( $feder_logo ) ? $feder_logo['url'] : wp_get_attachment_url( $feder_logo );
+                            }
+                        }
+                    }
 
 ?>
 <style>
@@ -123,16 +138,6 @@
                             <span><?php esc_html_e($subtitulo)?></span>
 
                         <?php endif; ?>
-
-                        <?php if ($ivace) : ?>
-
-                           <figure class="agenda-figure right-6 top-12 w-1/2">
-
-                               <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
-
-                           </figure>
-
-                       <?php endif; ?>
 
                     <div class="my-6">
 
@@ -211,7 +216,7 @@
         <section class="relative elementor-section elementor-section-boxed mx-auto pt-24 pb-18 px-6" >
 
             <div class="absolute top-0 left-0 right-0 -translate-y-5 mx-auto py-3 px-6 w-10/12 lg:w-fit overflow-hidden bg-white rounded-xl shadow-lg elementor-sticky elementor-sticky--active elementor-section--handles-inside elementor-sticky--effects"">
-                
+
                 <ul class="flex flex-row flex-wrap lg:flex-nowrap gap-3">
                     
                     <?php if ($fecha_inicio): ?>
@@ -263,6 +268,33 @@
                 </ul>
 
             </div>
+
+                <?php if ($ivace) : ?>
+
+                    <div class="relative elementor-section elementor-section-boxed mx-auto -mt-2 mb-6 flex flex-col gap-2 justify-center" style="max-width: 1200px;">
+
+                        <h3 class="mx-auto"><?php _e('Cofinancia', 'camaravalencia'); ?></h3>
+                    
+                        <figure class="agenda-figure right-6 top-12 w-full md:w-3/12 self-center">
+
+                            <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+
+                        </figure>
+
+                        <?php if ($feder && $ivace) : ?>
+            
+                            <figure class="agenda-figure right-6 top-12 w-full md:w-6/12 self-center">
+                
+                                <img src="<?= esc_url( $feder_logo['url'] ); ?>" alt="<?= esc_attr( $feder_logo['alt'] ); ?>" />
+                
+                            </figure>
+
+                        <?php endif; ?>
+
+                    </div>
+                <?php endif; ?>
+
+
 
             <div class="elementor-container gap-10">
 
