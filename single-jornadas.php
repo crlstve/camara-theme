@@ -271,19 +271,13 @@
 
                 <?php if ($ivace) : ?>
 
-                    <div class="relative elementor-section elementor-section-boxed mx-auto -mt-2 mb-6 flex flex-col gap-2 justify-center" style="max-width: 1200px;">
+                    <div class="relative elementor-section elementor-section-boxed mx-auto -mt-2 pb-12 flex flex-col gap-2 justify-center" style="max-width: 1200px;">
 
                         <h3 class="mx-auto"><?php _e('Cofinancia', 'camaravalencia'); ?></h3>
-                    
-                        <figure class="agenda-figure right-6 top-12 w-full md:w-3/12 self-center">
-
-                            <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
-
-                        </figure>
 
                         <?php if ($feder && $ivace) : ?>
             
-                            <figure class="agenda-figure right-6 top-12 w-full md:w-6/12 self-center">
+                            <figure class="agenda-figure right-6 top-12 w-full md:w-5/12 self-center">
                 
                                 <img src="<?= esc_url( $feder_logo['url'] ); ?>" alt="<?= esc_attr( $feder_logo['alt'] ); ?>" />
                 
@@ -291,9 +285,15 @@
 
                         <?php endif; ?>
 
-                    </div>
-                <?php endif; ?>
+                        <figure class="agenda-figure right-6 top-12 w-full md:w-[22%] self-center">
 
+                            <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+
+                        </figure>
+
+                    </div>
+
+                <?php endif; ?>
 
 
             <div class="elementor-container gap-10">
