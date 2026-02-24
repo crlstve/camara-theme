@@ -821,6 +821,10 @@ function register_camara_elementor_widgets( $widgets_manager ) {
             'class' => 'Camara_Video_Hero_Widget',
             'file'  => 'widget-video_hero.php'
         ),
+        'form' => array(
+            'class' => 'Camara_Form_Widget',
+            'file'  => 'widget-form.php'
+        ),
     );
     
     // Registrar cada widget
@@ -857,6 +861,7 @@ function load_camara_widget_functions() {
         'widgets/slider_home/cpt-slider_home.php',
         'widgets/slider_home/acf-slider_home.php',
         'widgets/video_hero/functions-video_hero.php',
+        'widgets/form/functions-form.php',
     );
     
     foreach ( $widget_functions as $file ) {
