@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-@layer theme {
-    :root, :host {
+@theme {
         --font-display: "Montserrat", sans-serif;
         --megamenu-bg-color: #ffffff;
         --megamenu-text-color: #1e1e1e;
@@ -38,10 +37,6 @@
             --e-global-color-c52a8e2: #FECF49;
             --e-global-color-7ca3883: #FFF9E7;            
 
-
-    }
-
-    :root {
         --color-text: #404248;
         --color-default: #ba0727;
         --bg-color-default: #f4f5fc;
@@ -53,7 +48,6 @@
         --bg-color-internacional: #fff5f8;
         --color-ayudas: #fecf49;
         --bg-color-ayudas: #fff9e7;
-    }
 }
 
 @layer components {

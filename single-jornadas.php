@@ -48,6 +48,7 @@
                 $pais_destino = get_field('jornadas_paisdestino');
             // Repetidores
                 $patrocinadores = get_field('jornadas_patrocinadores');
+                $top_partners = get_field('field_top_partners');
                 $programa_fila = get_field('programa_fila');
 
             // Taxonomías
@@ -75,39 +76,6 @@
                      $datos_agenda_ws = get_info_ws_agenda_global($id_proyecto_crm, ICL_LANGUAGE_CODE);
                     // Si el evento es exclusivo para el club, redirige a la página externa
                     $id_jornada_crm_club = es_jornada_club(get_the_ID());
-
-                    $ivace = false;
-                    $ivace_logo = '';
-                    if ( is_array( $patrocinadores ) && !empty( $patrocinadores ) ) {
-                        $ids_patrocinadores = array_column( $patrocinadores, 'jornadas_patrocinadores_patrocinador' );
-                        $ivace = in_array( 662, $ids_patrocinadores );
-                        
-                        if ( $ivace ) {
-                            // Recuperar el logo de la taxonomía
-                            $ivace_logo = get_field('tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662');
-                            
-                            // Si necesitas la URL de la imagen
-                            if ( $ivace_logo ) {
-                                $ivace_logo_url = is_array( $ivace_logo ) ? $ivace_logo['url'] : wp_get_attachment_url( $ivace_logo );
-                            }
-                        }
-                    }
-                    $feder = false;
-                    $feder_logo = '';
-                    if ( is_array( $patrocinadores ) && !empty( $patrocinadores ) ) {
-                        $ids_patrocinadores = array_column( $patrocinadores, 'jornadas_patrocinadores_patrocinador' );
-                        $feder = in_array( 980, $ids_patrocinadores );
-                        
-                        if ( $feder ) {
-                            // Recuperar el logo de la taxonomía
-                            $feder_logo = get_field('tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980');
-                            
-                            // Si necesitas la URL de la imagen
-                            if ( $feder_logo ) {
-                                $feder_logo_url = is_array( $feder_logo ) ? $feder_logo['url'] : wp_get_attachment_url( $feder_logo );
-                            }
-                        }
-                    }
 
 ?>
 <style>
@@ -269,27 +237,65 @@
 
             </div>
 
-                <?php if ($ivace) : ?>
+                <?php if ($top_partners) : ?>
 
                     <div class="relative elementor-section elementor-section-boxed mx-auto -mt-2 pb-12 flex flex-col gap-2 justify-center" style="max-width: 1200px;">
 
-                        <h3 class="mx-auto"><?php _e('Cofinancia', 'camaravalencia'); ?></h3>
+                    <div class="grid grid-cols-5 gap-2 justify-items-center items-center">
 
-                        <?php if ($feder && $ivace) : ?>
-            
-                            <figure class="agenda-figure right-6 top-12 w-full md:w-5/12 self-center">
-                
-                                <img src="<?= esc_url( $feder_logo['url'] ); ?>" alt="<?= esc_attr( $feder_logo['alt'] ); ?>" />
-                
+                        <div class="flex flex-col justify-center items-center w-full md:w-2/3">
+
+                            <figure class="agenda-figure right-6 top-12 w-full self-center">
+                                <img
+                                    src="<?= esc_url( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_273' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_273' )['url'] ?? '' ) : wp_get_attachment_url( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_273' ) ) ); ?>"
+                                    alt="<?= esc_attr( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_273' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_273' )['alt'] ?? 'Global CV' ) : 'Global CV' ); ?>"
+                                />
                             </figure>
 
-                        <?php endif; ?>
+                        </div>
 
-                        <figure class="agenda-figure right-6 top-12 w-full md:w-[22%] self-center">
+                        <div class="flex flex-col col-span-3 justify-center items-center gap-4">
 
-                            <img src="<?= esc_url( $ivace_logo['url'] ); ?>" alt="<?= esc_attr( $ivace_logo['alt'] ); ?>" />
+                            <figure class="agenda-figure right-6 top-12 w-full  self-center">
+                                <img
+                                    src="<?= esc_url( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980' )['url'] ?? '' ) : wp_get_attachment_url( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980' ) ) ); ?>"
+                                    alt="<?= esc_attr( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_980' )['alt'] ?? 'Feder' ) : 'Feder' ); ?>"
+                                />
+                            </figure>
 
-                        </figure>
+                                <div class="flex flex-row flex-wrap gap-4 justify-center">
+                                    <figure class="agenda-figure right-6 top-12 w-full md:w-2/6 self-center">
+
+                                        <img
+                                            src="<?= esc_url( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662' )['url'] ?? '' ) : wp_get_attachment_url( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662' ) ) ); ?>"
+                                            alt="<?= esc_attr( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_662' )['alt'] ?? 'IVACE' ) : 'IVACE' ); ?>"
+                                        />
+
+                                    </figure>
+
+                                 <span class="w-1 border-l border[-e-global-color-2d90adf]"> </span>
+
+                                    <figure class="agenda-figure right-6 top-12 w-fitself-center">
+
+                                        <?= wp_get_attachment_image(60921, 'full', false, ['class' => 'w-full md:w-5/6']); ?>
+                                        
+                                    </figure>
+                                </div>
+                        </div>
+
+                        <div class="flex flex-col justify-center items-center w-full md:w-2/3">
+
+                            <figure class="agenda-figure right-6 top-12 w-full self-center">
+                                <img
+                                    src="<?= esc_url( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_979' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_979' )['url'] ?? '' ) : wp_get_attachment_url( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_979' ) ) ); ?>"
+                                    alt="<?= esc_attr( is_array( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_979' ) ) ? ( get_field( 'tax_patrocinadorjornada_logotipo', 'patrocinadorjornada_979' )['alt'] ?? 'Pyme Global' ) : 'Pyme Global' ); ?>"
+                                />
+                            </figure>
+
+                        </div>
+
+                    </div>
+
 
                     </div>
 
@@ -426,7 +432,7 @@
 
         </section>
 
-        <?php if ( $patrocinadores): ?>
+        <?php if ( $patrocinadores && !$top_partners): ?>
 
             <section class="w-full py-1 elementor-section elementor-section-boxed">
                 
