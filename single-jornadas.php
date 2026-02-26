@@ -273,11 +273,9 @@
 
                                     </figure>
 
-                                 <span class="w-1 border-l border[-e-global-color-2d90adf]"> </span>
-
                                     <figure class="agenda-figure right-6 top-12 w-fitself-center">
 
-                                        <?= wp_get_attachment_image(60921, 'full', false, ['class' => 'w-full md:w-5/6']); ?>
+                                        <?= wp_get_attachment_image(60921, 'full', false, ['class' => 'w-full md:w-4/6']); ?>
                                         
                                     </figure>
                                 </div>
