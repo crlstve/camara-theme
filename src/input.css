@@ -51,6 +51,14 @@
 }
 
 @layer components {
+
+    .elementor-widget-theme-post-content ul > li {
+        @apply ml-2 list-disc list-inside;
+    }
+    .elementor-widget-theme-post-content ul{
+        @apply pb-2;
+    }
+
     /* ========================================
        HERO SECTION BUTTONS
        ======================================== */

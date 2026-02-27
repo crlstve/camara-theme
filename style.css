@@ -1964,7 +1964,7 @@ a.productos-relacionados-cursos-item-boton:visited {
   }
 }
 
-.page-template-template_formacion *,
+/*.page-template-template_formacion *,
 .cursos-template-template_curso_libre *,
 .cursos-template-template_curso_estructurado *,
 
@@ -1975,8 +1975,8 @@ a.productos-relacionados-cursos-item-boton:visited {
 .page-template-template_formacion #oferta_formacion *,
 .cursos-template-template_curso_libre #oferta_formacion *,
 .cursos-template-template_curso_estructurado *{
-  font-family: 'Poppins', sans-serif !important;
-}
+  font-family: 'Montserrat','Poppins', sans-serif !important;
+}*/
 
  .news-suscripcion-container {
     padding: 0px;
